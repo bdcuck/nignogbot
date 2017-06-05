@@ -14,6 +14,7 @@ const Twitter = new TwitterPackage(secret.twitter);
 const https = require('https');
 const dns = require('dns');
 const fs = require('fs');
+const { sep } = require('path');
 
 // NPM dependencies
 const geoip = require('geoip-lite');
@@ -31,6 +32,7 @@ const VM = require('./modules/vm.js');
 const DrugRPG = require('./modules/drugrpg.js');
 
 // Global vars and shit
+const messageFolder = 'chatlogs';
 const adminID = [126131628];
 const rpg = new DrugRPG();
 const vm = new VM();
@@ -50,6 +52,52 @@ const caps = (str) => {
     return strArr.join("");
 }
 
+const promisify = fn => (...args) =>
+    new Promise((resolve, reject) =>
+        fn(...args, (err, ...results) => {
+            if (err) reject(err);
+            else {
+                if (results.length > 1)
+                    resolve(results);
+                else
+                    resolve(results[0]);
+            }
+        }));
+
+const stat = promisify(fs.stat);
+const deleteFile = promisify(fs.unlink);
+const appendFile = promisify(fs.appendFile);
+const size = file => stat(file).then(stats => stats.size / 1024);
+const exists = file => stat(file)
+    .then(() => true)
+    .catch(() => false);
+
+// Logging lmao
+const saveMessage = msg => {
+    const id = msg.chat.id;
+    const file = messageFolder + sep + id + '.html';
+    const message =
+        '<h3>From: ' + (msg.from.username ? msg.from.first_name + ' - @' + msg.from.username : msg.from.first_name) + ' [' + date() + ']:</h3>' + (msg.text ? '<p>' + msg.text + '</p>' : '<p>[Picture] ID= ' + msg._fileId + '</p>');
+    const header = '<h1>***\nChat: ' + (msg.chat.title ? msg.chat.title + '( id: ' + msg.chat.id + ') ': 'Private chat ') + '\n***\n</h1>'
+    return exists(file).then(exists => {
+            if (!exists) {
+                appendFile(file, header);
+            }
+            appendFile(file, message);
+        return file;
+        })
+        .then(size)
+        .then(size => {
+            if (size > 15) {
+                const sendfile = new InputFile(fs.createReadStream(file), 'Chat' + id + '(' + date() + ').html');
+                bot.API.sendDocument({
+                    chat_id: '@fatboner',
+                    document: sendfile
+                }).then(() => deleteFile(file));
+            }
+        });
+};
+
 // getMe
 bot.username = 'bot';
 https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
@@ -67,6 +115,8 @@ https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
 
 // Botmagic happens here lmao
 bot.startLongpolling();
+
+bot.on('text', saveMessage);
 
 bot.on('text', msg => {
 
@@ -689,3 +739,4 @@ bot.on('location', msg => {
     }, msg);
 });
 
+bot.on('photo', saveMessage);
