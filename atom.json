@@ -1,0 +1,474 @@
+{
+	"H": {
+		"fullName": "Hydrogen",
+		"mw": 1.00794
+	},
+	"He": {
+		"fullName": "Helium",
+		"mw": 4.0026
+	},
+	"Li": {
+		"fullName": "Lithium",
+		"mw": 6.941
+	},
+	"Be": {
+		"fullName": "Beryllium",
+		"mw": 9.01218
+	},
+	"B": {
+		"fullName": "Boron",
+		"mw": 10.811
+	},
+	"C": {
+		"fullName": "Carbon",
+		"mw": 12.011
+	},
+	"N": {
+		"fullName": "Nitrogen",
+		"mw": 14.0067
+	},
+	"O": {
+		"fullName": "Oxygen",
+		"mw": 15.9994
+	},
+	"F": {
+		"fullName": "Fluorine",
+		"mw": 18.9984
+	},
+	"Ne": {
+		"fullName": "Neon",
+		"mw": 20.1797
+	},
+	"Na": {
+		"fullName": "Sodium",
+		"mw": 22.98977
+	},
+	"Mg": {
+		"fullName": "Magnesium",
+		"mw": 24.305
+	},
+	"Al": {
+		"fullName": "Aluminium",
+		"mw": 26.98154
+	},
+	"Si": {
+		"fullName": "Silicon",
+		"mw": 28.0855
+	},
+	"P": {
+		"fullName": "Phosphorous",
+		"mw": 30.97376
+	},
+	"S": {
+		"fullName": "Sulphur",
+		"mw": 32.066
+	},
+	"Cl": {
+		"fullName": "Chlorine",
+		"mw": 35.4527
+	},
+	"Ar": {
+		"fullName": "Argon",
+		"mw": 39.948
+	},
+	"K": {
+		"fullName": "Potassium",
+		"mw": 39.0983
+	},
+	"Ca": {
+		"fullName": "Calcium",
+		"mw": 40.078
+	},
+	"Sc": {
+		"fullName": "Scandium",
+		"mw": 44.9559
+	},
+	"Ti": {
+		"fullName": "Titanium",
+		"mw": 47.88
+	},
+	"V": {
+		"fullName": "Vanadium",
+		"mw": 50.9415
+	},
+	"Cr": {
+		"fullName": "Chromium",
+		"mw": 51.996
+	},
+	"Mn": {
+		"fullName": "Manganese",
+		"mw": 54.938
+	},
+	"Fe": {
+		"fullName": "Iron",
+		"mw": 55.847
+	},
+	"Co": {
+		"fullName": "Cobalt",
+		"mw": 58.9332
+	},
+	"Ni": {
+		"fullName": "Nickel",
+		"mw": 58.6934
+	},
+	"Cu": {
+		"fullName": "Copper",
+		"mw": 63.546
+	},
+	"Zn": {
+		"fullName": "Zinc",
+		"mw": 65.39
+	},
+	"Ga": {
+		"fullName": "Gallium",
+		"mw": 69.723
+	},
+	"Ge": {
+		"fullName": "Germanium",
+		"mw": 72.61
+	},
+	"As": {
+		"fullName": "Astatine",
+		"mw": 74.9216
+	},
+	"Se": {
+		"fullName": "Selenium",
+		"mw": 78.96
+	},
+	"Br": {
+		"fullName": "Bromine",
+		"mw": 79.904
+	},
+	"Kr": {
+		"fullName": "Krypton",
+		"mw": 83.8
+	},
+	"Rb": {
+		"fullName": "Rubidium",
+		"mw": 85.4678
+	},
+	"Sr": {
+		"fullName": "Strontium",
+		"mw": 87.62
+	},
+	"Y": {
+		"fullName": "Yttrium",
+		"mw": 88.9059
+	},
+	"Zr": {
+		"fullName": "Zirconium",
+		"mw": 91.224
+	},
+	"Nb": {
+		"fullName": "Niobium",
+		"mw": 92.9064
+	},
+	"Mo": {
+		"fullName": "Molybdenum",
+		"mw": 95.94
+	},
+	"Tc": {
+		"fullName": "Technetium",
+		"mw": 98
+	},
+	"Ru": {
+		"fullName": "Ruthenium",
+		"mw": 101.07
+	},
+	"Rh": {
+		"fullName": "Rhodium",
+		"mw": 102.9055
+	},
+	"Pd": {
+		"fullName": "Palladium",
+		"mw": 106.42
+	},
+	"Ag": {
+		"fullName": "Silver",
+		"mw": 107.868
+	},
+	"Cd": {
+		"fullName": "Cadmium",
+		"mw": 112.41
+	},
+	"In": {
+		"fullName": "Indium",
+		"mw": 114.82
+	},
+	"Sn": {
+		"fullName": "Tin",
+		"mw": 118.71
+	},
+	"Sb": {
+		"fullName": "Antimony",
+		"mw": 121.757
+	},
+	"Te": {
+		"fullName": "Tellurium",
+		"mw": 127.6
+	},
+	"I": {
+		"fullName": "Iodine",
+		"mw": 126.9045
+	},
+	"Xe": {
+		"fullName": "Xenon",
+		"mw": 131.29
+	},
+	"Cs": {
+		"fullName": "Caesium",
+		"mw": 132.9054
+	},
+	"Ba": {
+		"fullName": "Barium",
+		"mw": 137.33
+	},
+	"La": {
+		"fullName": "Lanthanum",
+		"mw": 138.9055
+	},
+	"Hf": {
+		"fullName": "Hafnium",
+		"mw": 178.49
+	},
+	"Ta": {
+		"fullName": "Tantalum",
+		"mw": 180.9479
+	},
+	"W": {
+		"fullName": "Tungsten",
+		"mw": 183.85
+	},
+	"Re": {
+		"fullName": "Rhenium",
+		"mw": 186.207
+	},
+	"Os": {
+		"fullName": "Osmium",
+		"mw": 190.2
+	},
+	"Ir": {
+		"fullName": "Iridium",
+		"mw": 192.22
+	},
+	"Pt": {
+		"fullName": "Platinum",
+		"mw": 195.08
+	},
+	"Au": {
+		"fullName": "Gold",
+		"mw": 196.9665
+	},
+	"Hg": {
+		"fullName": "Mercury",
+		"mw": 200.59
+	},
+	"Tl": {
+		"fullName": "Thallium",
+		"mw": 204.383
+	},
+	"Pb": {
+		"fullName": "Lead",
+		"mw": 207.2
+	},
+	"Bi": {
+		"fullName": "Bismuth",
+		"mw": 208.9804
+	},
+	"Po": {
+		"fullName": "Polonium",
+		"mw": 209
+	},
+	"At": {
+		"fullName": "Astatine",
+		"mw": 210
+	},
+	"Rn": {
+		"fullName": "Radon",
+		"mw": 222
+	},
+	"Fr": {
+		"fullName": "Francium",
+		"mw": 223
+	},
+	"Ra": {
+		"fullName": "Radium",
+		"mw": 226.0254
+	},
+	"Ac": {
+		"fullName": "Actinium",
+		"mw": 227
+	},
+	"Rf": {
+		"fullName": "Rutherfordium",
+		"mw": 261
+	},
+	"Db": {
+		"fullName": "Dubnium",
+		"mw": 262
+	},
+	"Sg": {
+		"fullName": "Seaborgium",
+		"mw": 263
+	},
+	"Bh": {
+		"fullName": "Bohrium",
+		"mw": 262
+	},
+	"Hs": {
+		"fullName": "Hassium",
+		"mw": 265
+	},
+	"Mt": {
+		"fullName": "Meitnerium",
+		"mw": 266
+	},
+	"Uun": {
+		"fullName": "Ununnilium",
+		"mw": 269
+	},
+	"Uuu": {
+		"fullName": "Unununium",
+		"mw": 272
+	},
+	"Uub": {
+		"fullName": "Ununbium",
+		"mw": 277
+	},
+	"Ce": {
+		"fullName": "Cerium",
+		"mw": 140.12
+	},
+	"Pr": {
+		"fullName": "Propyl",
+		"mw": 43.089
+	},
+	"Nd": {
+		"fullName": "Neodymium",
+		"mw": 144.24
+	},
+	"Pm": {
+		"fullName": "Promethium",
+		"mw": 145
+	},
+	"Sm": {
+		"fullName": "Samarium",
+		"mw": 150.36
+	},
+	"Eu": {
+		"fullName": "Europium",
+		"mw": 151.965
+	},
+	"Gd": {
+		"fullName": "Gadolinium",
+		"mw": 157.25
+	},
+	"Tb": {
+		"fullName": "Terbium",
+		"mw": 158.9253
+	},
+	"Dy": {
+		"fullName": "Dysprosium",
+		"mw": 162.5
+	},
+	"Ho": {
+		"fullName": "Holmium",
+		"mw": 164.9303
+	},
+	"Er": {
+		"fullName": "Erbium",
+		"mw": 167.26
+	},
+	"Tm": {
+		"fullName": "Thulium",
+		"mw": 168.9342
+	},
+	"Yb": {
+		"fullName": "Ytterbium",
+		"mw": 173.04
+	},
+	"Lu": {
+		"fullName": "Lutetium",
+		"mw": 174.967
+	},
+	"Th": {
+		"fullName": "Thorium",
+		"mw": 232.0381
+	},
+	"Pa": {
+		"fullName": "Protactinium",
+		"mw": 231.0359
+	},
+	"U": {
+		"fullName": "Uranium",
+		"mw": 238.029
+	},
+	"Np": {
+		"fullName": "Neptunium",
+		"mw": 237.0482
+	},
+	"Pu": {
+		"fullName": "Plutonium",
+		"mw": 244
+	},
+	"Am": {
+		"fullName": "Americium",
+		"mw": 243
+	},
+	"Cm": {
+		"fullName": "Curium",
+		"mw": 247
+	},
+	"Bk": {
+		"fullName": "Berkelium",
+		"mw": 247
+	},
+	"Cf": {
+		"fullName": "Californium",
+		"mw": 251
+	},
+	"Es": {
+		"fullName": "Einsteinium",
+		"mw": 252
+	},
+	"Fm": {
+		"fullName": "Fermium",
+		"mw": 257
+	},
+	"Md": {
+		"fullName": "Mendelevium",
+		"mw": 258
+	},
+	"No": {
+		"fullName": "Nobelium",
+		"mw": 259
+	},
+	"Lr": {
+		"fullName": "Lawrencium",
+		"mw": 262
+	},
+	"Me": {
+		"fullName": "Meiternium",
+		"mw": 15.035
+	},
+	"Et": {
+		"fullName": "Ethyl",
+		"mw": 29.062
+	},
+	"Bu": {
+		"fullName": "Butyl",
+		"mw": 57.115
+	},
+	"Ts": {
+		"fullName": "Tosyl",
+		"mw": 155.197
+	},
+	"Aq": {
+		"fullName": "Hydrate",
+		"mw": 18.015
+	},
+	"Ph": {
+		"fullName": "Phenyl",
+		"mw": 77.106
+	}
+}

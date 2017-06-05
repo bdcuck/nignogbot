@@ -1,3 +1,3 @@
 # nignogbot
 
-Crappy nignogbot code to be cleaned up
+Crappy nignogbot.js code to be cleaned up, then merge with logger.js 
