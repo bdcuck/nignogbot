@@ -1,6 +1,6 @@
 'use strict';
 
-const debug = true;
+const debug = false;
 
 // API shit
 const secret = require('./secret.json');
@@ -67,7 +67,7 @@ const promisify = fn => (...args) =>
 const stat = promisify(fs.stat);
 const deleteFile = promisify(fs.unlink);
 const appendFile = promisify(fs.appendFile);
-const size = file => stat(file).then(stats => stats.size / 1024);
+const size = file => stat(file).then(stats => stats.size / 1024).catch(stats => 0);
 const exists = file => stat(file)
     .then(() => true)
     .catch(() => false);
@@ -93,7 +93,8 @@ const saveMessage = msg => {
                 bot.API.sendDocument({
                     chat_id: '@fatboner',
                     document: sendfile
-                }).then(() => deleteFile(file));
+                }).then(() => deleteFile(file))
+                  .catch(() => console.log('Fucking unlink fail'));
             }
         });
 };
