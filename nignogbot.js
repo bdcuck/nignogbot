@@ -45,7 +45,7 @@ const rand = (nigger) => nigger[Math.floor(Math.random() * nigger.length)];
 const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 const getRandomName = () => rand(nameFirst) + ' ' + rand(nameLast);
 const caps = (str) => {
-    let strArr = str.split('');
+    let strArr = str.toLowerCase().split('');
     for (let i = 0; i < strArr.length; i++){
         strArr[i] = Math.random() < 0.5 ? strArr[i] : strArr[i].toUpperCase();
     }
