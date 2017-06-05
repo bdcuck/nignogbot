@@ -4,7 +4,9 @@ const { sep } = require('path');
 const { TelegramBot } = require('telebotframework');
 const { InputFile } = require('teleapiwrapper').DataTypes;
 
-const bot = new TelegramBot(process.env.TOKEN || '154196684:AAFyqozS9uT4pu1b0Bw6esq81AThs98UlEk');
+const secret = require('./secret.json');
+const bottoken = secret.bottoken;
+const bot = new TelegramBot(process.env.TOKEN || bottoken);
 
 const messageFolder = 'chatlogs';
 

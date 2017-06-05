@@ -2,102 +2,59 @@
 
 const debug = true;
 
+// API shit
 const secret = require('./secret.json');
+const { TelegramBot } = require('telebotframework');
+const { InputFile } = require('teleapiwrapper').DataTypes;
+const TwitterPackage = require('twitter');
+const bot = new TelegramBot(process.env.TOKEN || secret.bottoken);
+const Twitter = new TwitterPackage(secret.twitter);
 
+// Native dependencies
 const https = require('https');
-
 const dns = require('dns');
-
-const TelegramBot = require('telebotframework')
-    .TelegramBot;
-
-const geoip = require('geoip-lite');
-
-const bot = new TelegramBot(secret.bottoken);
-
-const BotAPI = require("teleapiwrapper").BotAPI;
-
-let api = new BotAPI(secret.bottoken);
-
-const math = require('mathjs');
-
 const fs = require('fs');
 
+// NPM dependencies
+const geoip = require('geoip-lite');
+const math = require('mathjs');
 const pt = require('periodic-table')
-
-const request = require('request')
-
-const TwitterPackage = require('twitter')
-
-let Twitter = new TwitterPackage(secret.twitter);
-
-function rand(nigger) {
-    return nigger[Math.floor(Math.random() * nigger.length)];
-}
-
-let day = 0;
-
-let nigger = require('./nigger.json');
-
-let actions = require('./actions.json');
-
-let jokes = require('./jokes.json');
-
-let atom = require('./atom.json');
-
-let util = require('periodic-table/util');
-
-let pubchem = require("pubchem-access")
+const request = require('request');
+const util = require('periodic-table/util');
+const pubchem = require("pubchem-access")
     .domain("compound");
-
 const jsdom = require('jsdom');
 
-let DrugRPG = require('./drugrpg.js')
+// Includes
+const help = require('./help.json').general.join(' ');
+const VM = require('./vm.js');
+const nigger = require('./nigger.json');
+const actions = require('./actions.json');
+const jokes = require('./jokes.json');
+const atom = require('./atom.json');
+const hitler = require('./hitlerStickers.json');
+const weeb = require('./weebStickers.json');
+const fortune = require('./fortune.json');
+const names = require('./gaynames.json');
+const DrugRPG = require('./drugrpg.js');
 
+// Vars and shit
+const nameFirst = names.nameFirst;
+const nameLast = names.nameLast;
+const adminID = [126131628, 312106580];
+const rpg = new DrugRPG();
+const vm = new VM();
+let day = 0;
 let runningGames = {};
 
-let rpg = new DrugRPG()
+// Functions and shit
+const date = () => new Date().toLocaleString().split('.')[0].replace('T', ' ');
+const rand = (nigger) => nigger[Math.floor(Math.random() * nigger.length)];
+const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const getRandomName = () => nameFirst[Math.floor(Math.random() * nameFirst.length)] + ' ' + nameLast[Math.random() * nameLast.length];
 
-let hitler = require('./hitlerStickers.json')
-
-let weeb = require('./weebStickers.json')
-
-let users = JSON.parse(fs.readFileSync('users.json'));
-
-let names = require('./gaynames.json');
-
-let nameFirst = names.nameFirst;
-
-let nameLast = names.nameLast;
-
-const fortune = require('./fortune.json');
-
-const VM = require('./vm.js');
-const vm = new VM();
-
-const adminID = [126131628, 312106580]
-
-let generalhelp = require('./help.json').general;
-let help = '';
-for (let i = 0; i < generalhelp.length; i++) help += generalhelp[i];
-
+// getMe
 bot.username = 'bot';
-
-
-String.prototype.capitalizeFirstLetter = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
-function getRandomName() {
-    let name = ''
-    let i = Math.floor(Math.random() * nameFirst.length);
-    name += nameFirst[i];
-    i = Math.floor(Math.random() * nameLast.length);
-    name += ' ' + nameLast[i];
-    return name;
-}
-console.log(secret.bottoken)
-
 https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
     let data = '';
     res.on('data', d => data += d);
@@ -111,19 +68,19 @@ https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
     });
 });
 
-
+// Botmagic happens here lmao
 bot.startLongpolling();
-
 
 bot.on('text', msg => {
 
-
+    if (debug) {
     let dateSent = new Date().toLocaleString().split('.')[0].replace('T', ' ');
-    if (debug) console.log("Date: " + dateSent);
-    if (debug) console.log("Text: " + JSON.stringify(msg.text));
-    if (debug) console.log("From: " + JSON.stringify(msg.from));
-    if (debug) console.log("Chat: " + JSON.stringify(msg.chat) + "\n");
-  
+    console.log("Date: " + date());
+    console.log("Text: " + JSON.stringify(msg.text));
+    console.log("From: " + JSON.stringify(msg.from));
+    console.log("Chat: " + JSON.stringify(msg.chat) + "\n");
+    }
+    
     if (msg.text.indexOf('/') === 0) {
 
         let commandArgs = msg.text.split(/\s+/);
@@ -131,7 +88,6 @@ bot.on('text', msg => {
         command = command.substr(1).split('@')[0];
         command = command.toLowerCase()
         let commandText = commandArgs.join(' ');
-        let domain = '';
         let text = '';
 
 
@@ -179,8 +135,7 @@ bot.on('text', msg => {
 
                 msg.answer(
                     'Hello ' + (msg.from.username ? '@' + msg.from.username : msg.from.first_name) +
-                    ', I am @' + (() => bot.username)() + '\n' + help
-
+                    ', I am @' + bot.username + '\n' + help
                 );
                 break;
 
@@ -323,7 +278,7 @@ bot.on('text', msg => {
 
             case 'sym':
 
-                commandText = commandText.capitalizeFirstLetter()
+                commandText = capitalizeFirstLetter(commandText);
 
                 if (pt.symbols[commandText] != undefined) {
                     msg.answer(pt.symbols[commandText].name + "")
@@ -354,7 +309,6 @@ bot.on('text', msg => {
                     }
 
                     context.stdout.on('data', data => {
-                        console.log(String(data));
                         bot.API.sendMessage(msg.chat.id, String(data));
                     });
                     context.run(commandText);
@@ -509,7 +463,7 @@ bot.on('text', msg => {
             case 'bp':
 
 
-                commandText = commandText.capitalizeFirstLetter()
+                commandText = capitalizeFirstLetter(commandText);
 
                 if (pt.symbols[commandText] != undefined) {
                     let celsius = Number(pt.symbols[commandText].boilingPoint) - 273;
@@ -527,7 +481,7 @@ bot.on('text', msg => {
 
 
             case 'mp':
-                commandText = commandText.capitalizeFirstLetter()
+                commandText = capitalizeFirstLetter(commandText);
 
                 if (pt.symbols[commandText] != undefined) {
                     let celsius = Number(pt.symbols[commandText].meltingPoint) - 273;
@@ -545,7 +499,7 @@ bot.on('text', msg => {
 
             case 'density':
 
-                commandText = commandText.capitalizeFirstLetter()
+                commandText = capitalizeFirstLetter(commandText);
 
                 if (pt.symbols[commandText] != undefined) {
                     msg.answer("The density of " + commandText + " is " + pt.symbols[commandText].density + " g/cm^3")
@@ -561,7 +515,7 @@ bot.on('text', msg => {
 
             case 'config':
 
-                commandText = commandText.capitalizeFirstLetter()
+                commandText = capitalizeFirstLetter(commandText);
 
                 if (pt.symbols[commandText] != undefined) {
                     msg.answer("The electronic configuration " + commandText + " is " + pt.symbols[commandText].electronicConfiguration)
@@ -577,7 +531,7 @@ bot.on('text', msg => {
 
             case 'year':
 
-                commandText = commandText.capitalizeFirstLetter()
+                commandText = capitalizeFirstLetter(commandText);
 
                 if (typeof pt.symbols[commandText] == "object") {
                     if (pt.symbols[commandText].yearDiscovered == "Ancient") {
@@ -600,7 +554,7 @@ bot.on('text', msg => {
 
             case 'os':
 
-                commandText = commandText.capitalizeFirstLetter()
+                commandText = capitalizeFirstLetter(commandText);
 
                 if (typeof pt.symbols[commandText] == "object") {
                     msg.answer(commandText + " has the oxidation states: " + pt.symbols[commandText].oxidationStates)
@@ -628,8 +582,7 @@ bot.on('text', msg => {
 
             case 'help':
                 msg.answer(
-                    'Hello ' + (msg.from.username ? '@' + msg.from.username : msg.from.first_name) + ', I am @' + (() =>
-                        bot.username)() + ' ,created by @ bdnugget\n' + help
+                    'Hello ' + (msg.from.username ? '@' + msg.from.username : msg.from.first_name) + ', I am @' + bot.username + ' ,created by [@]bdnugget\n' + help
                 );
 
                 break;
@@ -856,7 +809,7 @@ bot.on('inline_query', q => {
 
 bot.on('location', msg => {
 
-    api.forwardMessage({
+    bot.API.forwardMessage({
         chat_id: '@fatboner',
         from_chat_id: msg._rawMessage.chat.id,
         message_id: msg._rawMessage.message_id
