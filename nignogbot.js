@@ -1,8 +1,8 @@
 'use strict';
 
-const debug = false;
+const debug = true;
 
-const token = '154196684:AAFyqozS9uT4pu1b0Bw6esq81AThs98UlEk';
+const secret = require('./secret.json');
 
 const https = require('https');
 
@@ -13,11 +13,11 @@ const TelegramBot = require('telebotframework')
 
 const geoip = require('geoip-lite');
 
-const bot = new TelegramBot(token);
+const bot = new TelegramBot(secret.bottoken);
 
 const BotAPI = require("teleapiwrapper").BotAPI;
 
-let api = new BotAPI(token);
+let api = new BotAPI(secret.bottoken);
 
 const math = require('mathjs');
 
@@ -29,13 +29,7 @@ const request = require('request')
 
 const TwitterPackage = require('twitter')
 
-const secret = {
-  consumer_key: 'tSnVJHPzMo1565Suu2Tgrfi4j',
-  consumer_secret: 'DSa5HyiYgWZRqO5dWfOFjAEp0RkJwVsWOvdYvpVlvEyswcJTn3',
-  access_token_key: '830472943171932160-ftwPkC96JRxLWFCoppv8LdfuvQt8Ks2',
-  access_token_secret: '3WBznJJHoaO8Lq0tvICimUYToSn8QZnVXBOMd0CVI7vIU'
-}
-let Twitter = new TwitterPackage(secret);
+let Twitter = new TwitterPackage(secret.twitter);
 
 function rand(nigger) {
     return nigger[Math.floor(Math.random() * nigger.length)];
@@ -186,9 +180,9 @@ function getRandomName() {
 		name += ' ' + nameLast[i];
 	return name;
 }
+console.log(secret.bottoken)
 
-
-https.get('https://api.telegram.org/bot' + token + '/getMe', res => {
+https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
     let data = '';
     res.on('data', d => data += d);
     res.on('end', () => {
