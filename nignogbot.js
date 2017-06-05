@@ -42,6 +42,13 @@ const date = () => new Date().toLocaleString().split('.')[0].replace('T', ' ');
 const rand = (nigger) => nigger[Math.floor(Math.random() * nigger.length)];
 const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 const getRandomName = () => rand(nameFirst) + ' ' + rand(nameLast);
+const caps = (str) => {
+    let strArr = str.split('');
+    for (let i = 0; i < strArr.length; i++){
+        strArr[i] = Math.random() < 0.5 ? strArr[i] : strArr[i].toUpperCase();
+    }
+    return strArr.join("");
+}
 
 // getMe
 bot.username = 'bot';
@@ -314,6 +321,18 @@ bot.on('text', msg => {
                 break;
 
                 
+            case 'sponge':
+                if (!commandText) commandText = 'I\'m too retarded to type some text'
+                let spongemock = caps(commandText);
+                bot.API.sendPhoto({
+                    chat_id: msg.chat.id,
+                    photo: 'AgADBAAD5KkxG_insVEqWYY9gYd5LbhYRBkABN9N_vkXdq4snzsBAAEC',
+                    caption: spongemock
+                });
+                
+                break;
+                
+                
                 
 // Admin only trolling           
             case 'heilhitler':
@@ -328,7 +347,6 @@ bot.on('text', msg => {
 
 
             case 'terribleweebcancer':
-
                 if (adminID.indexOf(msg.from.id) == -1) {
                     msg.answer("No")
                 } else {
@@ -381,6 +399,7 @@ bot.on('text', msg => {
 
 
             case 'bjstart':
+            // Placeholder for an actual BJ game
                 msg.answer("👌 " + msg.from.first_name + " is bust.\nThe dealer draws cards 10♥️, A♠️ (21)\n💰" + msg.from.first_name + " loses all money.");
                 break;
 
@@ -670,26 +689,3 @@ bot.on('location', msg => {
     }, msg);
 });
 
-
-/*
-
-// Make this into Spongebob meme with sendPhoto instead!
-// Make function less prototype-rape and less noob first
-
-            case 'rand':
-                String.prototype.caps = function() {
-
-                    let str = this;
-                    let randIndex = Math.floor(Math.random() * str.length);
-                    while (!str[randIndex].match(/[a-z]/)) randIndex = Math.floor(Math.random() * str.length);
-                    let strArr = str.split("");
-                    strArr[randIndex] = str[randIndex].toUpperCase();
-                    return strArr.join("");
-                }
-                for (let i = 0; i < Math.floor(Math.random() * commandText.length); i++) {
-                    commandText = commandText.caps()
-                }
-                msg.answer(commandText)
-                break;
-                
-*/
