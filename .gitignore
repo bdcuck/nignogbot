@@ -30,4 +30,4 @@ node_modules
 
 chatlogs/*.html
 
-secret.js
+secret.json

@@ -35,34 +35,28 @@ function rand(nigger) {
     return nigger[Math.floor(Math.random() * nigger.length)];
 }
 
-var day = 0;
+let day = 0;
 
-var nigger = require('./nigger.json');
+let nigger = require('./nigger.json');
 
-var actions = require('./actions.json');
+let actions = require('./actions.json');
 
-var jokes = require('./jokes.json');
+let jokes = require('./jokes.json');
 
-var atom = require('./atom.json');
+let atom = require('./atom.json');
 
-var util = require('periodic-table/util');
+let util = require('periodic-table/util');
 
-var pubchem = require("pubchem-access")
+let pubchem = require("pubchem-access")
     .domain("compound");
 
 const jsdom = require('jsdom');
 
-var DrugRPG = require('./drugrpg.js')
+let DrugRPG = require('./drugrpg.js')
 
-var runningGames = {};
+let runningGames = {};
 
-var rpg = new DrugRPG()
-
-var pants = false
-
-var underpants = false
-
-var sit = false
+let rpg = new DrugRPG()
 
 let hitler = require('./hitlerStickers.json')
 
@@ -70,100 +64,22 @@ let weeb = require('./weebStickers.json')
 
 let users = JSON.parse(fs.readFileSync('users.json'));
 
-let nameFirst = ["Area 51", "Axe Wound", "Baby Cannon", "Bearded Clam", "Beaver", "Bleeding Meat Socket",
-	"Breakfast of Champions", "Broad Faced Chicken", "Bumsen", "Box", "Castle", "Cave", "Cavernous Gash",
-	"Choot", "Cockpit", "Cocksheath", "Coin Purse", "Cigar Box", "Clam", "Clit", "Clowns Pocket", "Cock Pocket",
-	"Cooch", "Coochie", "Coo-chi Snorcher", "Cooter", "Cunny", "Cunt", "Danger Clam", "Dragon's Lair", "Dugout",
-	"Face Flower", "Falcon Crest", "Fanny", "Fanny Boo", "Feedbag", "Feesh", "Fillet", "Fish", "FUPA",
-	"Front-Butt", "Fuddi", "Gammon Flaps", "Gaping Dragon", "Gash", "Gine", "Granny's Celler",
-	"Gretchin's Grabber", "Growler", "Ham wallet", "Hayloft", "Hole", "Honey Pot", "Lady Flower", "Lion's Den",
-	"Lucifer's Cradle", "Man's Downfall", "Meat Curtains", "Meat Wallet", "Meat Socket",
-	"Melissa's Mop Buckett", "Minge", "Muff", "Muffin", "Neden", "Nookie", "Patchouli", "Peggy's Parlor",
-	"Zach Nance Mag", "Pickle Jar", "Pink Sink", "Pink Taco", "Piss Flaps", "Piss Hole", "Pooki", "Poon",
-	"Poontang", "Pootie", "Pot Hole", "Punaani", "Puss", "Pussy", "Pussy Cat", "Pussyche", "Rosebud",
-	"Rumpled Slit Skin", "Sarah's Saddlebag", "Sausage Wallet", "Shame Cave", "Side-ways Smile", "Slit",
-	"Slot Machine", "Snapper", "Snatch", "Strange", "Stench Trench", "Stink Box", "Taco", "Tamale",
-	"The Great Australian Bite", "The Great Depression", "Toad", "Tonton", "Trim", "Tuna Purse", "Tuna Town",
-	"Tutu", "Twat", "Twinkle Cave", "Vag", "Vagoo", "Va-Jay-Jay", "Valarie's Stinkhole", "Velvet purse",
-	"Vertical Smile", "Virginia Belle", "Whispering eye", "Wizard's Sleeve", "Wuss", "Yawning Chasm",
-	"Yogurt Gun Holster", "Yoni", "ankle spanker", "baby-arm", "beaver basher", "bed snake", "best friend",
-	"blue-vein sausage", "penis sangbo nam rod", "baby-maker", "bell on a pole", "beef whistle", "boomstick",
-	"burrito", "bishop", "bratwurst", "braciole", "candle", "captain", "choad", "chopper", "cock", "cranny axe",
-	"cum gun", "custard launcher", "dagger", "deep-V diver", "dick", "dickie", "ding dong mcdork", "dingus",
-	"disco stick", "dog head", "drum stick", "dong", "donger", "dork", "dude piston", "dragon", "eggroll",
-	"Easy Rider", "Excalibur", "fang", "ferret", "flesh flute", "flesh tower", "foto", "fire hose", "fuck rod",
-	"fuck stick", "fudge sickle", "fun stick", "groin ferret", "giggle stick", "goofy goober", "hairy hotdog",
-	"heat-seeking moisture missile", "helmet head", "hose", "hog", "jackhammer", "Jimmy", "John", "Johnson",
-	"John Thomas", "joystick", "kickstand", "king sebastian", "knob", "krull the warrior king", "lap rocket",
-	"leaky hose", "lingam", "little Alex", "little Bob", "little Elvis", "lizard", "longfellow", "love muscle",
-	"love rod", "love stick", "love whistle", "luigi", "manhood", "man umbrella", "meat popsicle", "meat stick",
-	"meat sword", "meat injection", "member", "meter long king kong dong", "microphone", "middle stump",
-	"mushroom head", "mutton", "netherrod", "old boy", "old fellow", "old man", "one-eyed anaconda",
-	"one-eyed trouser-snake", "one-eyed monster", "one-eyed wonder weasel", "one-eyed wonder worm",
-	"one-eyed yogurt slinger", "pecker", "Pedro", "peepee", "Percy", "peter", "Pied Piper", "Pig skin bus",
-	"pink oboe", "pink torpedo", "piss weasle", "piston", "plug", "pnor", "poinswatter", "pork sword", "prick",
-	"princess sophia", "private eye", "private part", "purple-helmeted warrior of love",
-	"purple-headed yogurt flinger", "quiver bone", "rod", "rod of pleasure", "roundhead", "sausage",
-	"sebastianic sword", "schlong", "schlong dongadoodle", "schmuck, shmuck", "schnitzel", "schwanz", "schwarz",
-	"sea monster", "shaft", "short arm", "single serving soup dispenser", "skin flute", "soldier",
-	"spawn hammer", "stick shift", "sub", "surfboard", "Tallywhacker", "Tan Bannana", "tassle", "third leg",
-	"thumper", "thunderbird 3", "thundersword", "tinker", "todger", "tonk", "tool", "trouser snake",
-	"tubesteak", "twig", "twinkie", "uncle dick", "vein", "wand", "wang", "wang doodle", "wanger",
-	"wedding tackle", "wee wee", "whoopie stick", "wiener", "Wiener Schnitzel", "wick", "willy",
-	"wing dang doodle", "winkie", "yingyang", "yogurt gun"
-];
+let names = require('./gaynames.json');
 
-let nameLast = ["Destroyer", "Demolisher", "Killer", "Wrecker", "Pounder", "Penetrator", "Slayer", "Torturer",
-	"Twister", "Gobler", "Slaughterer", "Assassin", "Exterminator"
-];
+let nameFirst = names.nameFirst;
 
+let nameLast = names.nameLast;
 
-const save = (function() {
-    let ID;
-    return function(file) {
-        clearTimeout(ID);
-        ID = setTimeout(() => fs.writeFile('users.json', JSON.stringify(file, undefined, '\t')), 1000);
-    };
-})();
-
-const fortune = ["Your fortune: Excellent Luck", "Your fortune: Good Luck", "Your fortune: Average Luck", "Your fortune: Bad Luck", "Your fortune: Good news will come to you by mail", "Your fortune: （　´_ゝ`）ﾌｰﾝ", "Your fortune: ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!", "Your fortune: You will meet a dark handsome stranger", "Your fortune: Better not tell you now", "Your fortune: Outlook good", "Your fortune: Very Bad Luck", "Your fortune: Godly Luck ", "Your fortune: Reply hazy, try again"]
+const fortune = require('./fortune.json');
 
 const VM = require('./vm.js');
 const vm = new VM();
 
 const adminID = [126131628, 312106580]
 
-const help = 'Available commands: \n' +
-    '    /help - Displays this message\n' +
-    '-=Chemistry of the elements=-\n' +
-    '    /sym [symbol/name] - Symbol or name of the element\n' +
-    '    /mp [symbol] - Shows the melting point\n' +
-    '    /bp [symbol] - Shows the boiling point\n' +
-    '    /year [symbol] - Shows the year of discovery\n' +
-    '    /os [symbol] - Shows the possible oxidation states\n' +
-    '    /config [symbol] - Shows the electronic configuration\n' +
-    '    /density [symbol] - Shows the density\n' +
-    '-=General chemistry=-\n' +
-    '    /mw [formula] - Calculate molar mass\n' +
-    '    /mass [L, M, formula] - Grams needed for xL yM solution\n' +
-    '    /molar [g, L, formula] - Calculates molarity of solution\n' +
-    '    /volume [g, M formula] - L needed for yM solution from xgms\n' +
-    '    /synonym [molecule] - Gives up to 5 synonyms for a compound\n' +
-    '    /prop [molecule] - Gives various general properties a compound\n' +
-    '    /medchem [molecule] - Various medicinal chemistry properties\n' +
-    '    /cas [molecule] - Retrieves the CAS number of a compound\n' +
-    '-=Other commands=-\n' +
-    '    /eval [JavaScript] - Evaluate JavaScript\n' +
-    '    /killeval - Kill sandbox process\n' +
-    '    /wis [formula] - Calculator\n' +
-    '    /geoip [ip] - Shows location of server\n' +
-    '    /sim - Nigger SimCity 3000\n' +
-    '    /rpg [buy, sell, make, bribe, stats] - Drug RPG\n' +
-    '    /n - Nigger synonyms\n' +
-    '    /kek - Nigger jokes\n' +
-    '    /shout [text] - SHOUT!!!\n' +
-    '    /jew - Display random swastikas\n' +
-    '    /apple - Display random apples'
+let generalhelp = require('./help.json').general;
+let help = '';
+for (let i = 0; i < generalhelp.length; i++) help += generalhelp[i];
 
 bot.username = 'bot';
 
@@ -173,12 +89,12 @@ String.prototype.capitalizeFirstLetter = function() {
 }
 
 function getRandomName() {
-	let name = ''
-		let i = Math.floor(Math.random() * nameFirst.length);
-		name += nameFirst[i];
-		i = Math.floor(Math.random() * nameLast.length);
-		name += ' ' + nameLast[i];
-	return name;
+    let name = ''
+    let i = Math.floor(Math.random() * nameFirst.length);
+    name += nameFirst[i];
+    i = Math.floor(Math.random() * nameLast.length);
+    name += ' ' + nameLast[i];
+    return name;
 }
 console.log(secret.bottoken)
 
@@ -201,28 +117,18 @@ bot.startLongpolling();
 
 bot.on('text', msg => {
 
-    var getLastActiveString = function(user) {
-        if (user) {
-            return new Date(user.lastChanged).toISOString().split('.')[0].replace('T', ' ');
-        }
-    }
 
-    var dateSent = new Date().toLocaleString().split('.')[0].replace('T', ' ');
+    let dateSent = new Date().toLocaleString().split('.')[0].replace('T', ' ');
     if (debug) console.log("Date: " + dateSent);
     if (debug) console.log("Text: " + JSON.stringify(msg.text));
     if (debug) console.log("From: " + JSON.stringify(msg.from));
     if (debug) console.log("Chat: " + JSON.stringify(msg.chat) + "\n");
-//    
-//    if (msg.from.id === 273365631){
-//        msg.answer("here come dat panda")
-//    }
-//    
+  
     if (msg.text.indexOf('/') === 0) {
 
         let commandArgs = msg.text.split(/\s+/);
         let command = commandArgs.shift();
-        command = command.substr(1)
-            .split('@')[0];
+        command = command.substr(1).split('@')[0];
         command = command.toLowerCase()
         let commandText = commandArgs.join(' ');
         let domain = '';
@@ -232,45 +138,43 @@ bot.on('text', msg => {
         switch (command) {
 
 
-                
+
             case 'twat':
-                
-                if (commandText){
+
+                if (commandText) {
                     let tweet = commandText + " - " + msg.from.first_name;
-                    if (tweet.length < 141){
-                        Twitter.post('statuses/update', {status: tweet},  function(error, tweet, response){
-                          if(error){
-                            msg.answer(error);
-                          }
+                    if (tweet.length < 141) {
+                        Twitter.post('statuses/update', {
+                            status: tweet
+                        }, function(error, tweet, response) {
+                            if (error) {
+                                msg.answer(error);
+                            }
                             msg.answer("Messaged tweeted https://twitter.com/rambodildo");
-//                          console.log(tweet);  // Tweet body.
-//                          console.log(response);  // Raw response object.
                         });
-                    }
-                    else {
+                    } else {
                         msg.answer("Too long, you boner!")
                     }
-                }
-                else {
+                } else {
                     msg.answer("You forgot your message retard")
                 }
-                
-                
+
+
                 break;
-                
+
             case 'gayname':
-                
+
                 msg.answer(msg.from.first_name + " aka " + getRandomName())
-                
+
                 break;
-                
-                case 'monopoly':
-                
+
+            case 'monopoly':
+
                 msg.answer("Go to jail.")
-                
+
                 break;
-                
-                
+
+
             case 'start':
 
                 msg.answer(
@@ -280,67 +184,12 @@ bot.on('text', msg => {
                 );
                 break;
 
-                
+
             case 'fortune':
-            
+
                 msg.answer(rand(fortune));
-                
+
                 break;
-                
-                
-            case 'add':
-
-                if (!users[msg.chat.id]) users[msg.chat.id] = {};
-
-                users[msg.chat.id][msg.from.id] = msg.from;
-                users[msg.chat.id][msg.from.id].bio = commandText
-                users[msg.chat.id][msg.from.id].lastChanged = Date.now()
-                save(users);
-                msg.answer("Bio updated")
-                break;
-
-            case 'list':
-                let userFound = false;
-                let userID;
-                commandText = commandText.toLowerCase()
-                if (commandText.toLowerCase() === "all") {
-                    for (let k in users[msg.chat.id]) {
-                        if (users[msg.chat.id][k].lastChanged != undefined) {
-                            msg.answer(users[msg.chat.id][k].first_name + ": " + users[msg.chat.id][k].bio + "\nLast update: " +
-                                getLastActiveString(users[msg.chat.id][k]) +
-                                " (UTC)\n\n");
-                        } else {
-                            msg.answer(users[msg.chat.id][k].first_name + ": " + users[msg.chat.id][k].bio + "\n\n");
-                        }
-                    }
-
-                } else {
-                    for (let k in users[msg.chat.id]) {
-                        if (users[msg.chat.id][k].first_name != undefined) {
-                            if (users[msg.chat.id][k].first_name.toLowerCase() === commandText.toLowerCase()) {
-                                userFound = true;
-                                userID = k;
-                            }
-                        }
-                    }
-                    for (let k in users[msg.chat.id]) {
-                        if (users[msg.chat.id][k].username != undefined) {
-                            if (users[msg.chat.id][k].username.toLowerCase() === commandText.toLowerCase()) {
-                                userFound = true;
-                                userID = k;
-                            }
-                        }
-                    }
-                    if (userFound) {
-                        msg.answer(users[msg.chat.id][userID].first_name + ": " + users[msg.chat.id][userID].bio +
-                            "\nLast update: " + getLastActiveString(users[msg.chat.id][userID]) +
-                            " (UTC)");
-                    } else {
-                        msg.answer("User has not added a bio yet");
-                    }
-                }
-                break;
-
 
 
             case 'lenny':
@@ -361,10 +210,10 @@ bot.on('text', msg => {
 
                 String.prototype.caps = function() {
 
-                    var str = this;
-                    var randIndex = Math.floor(Math.random() * str.length);
+                    let str = this;
+                    let randIndex = Math.floor(Math.random() * str.length);
                     while (!str[randIndex].match(/[a-z]/)) randIndex = Math.floor(Math.random() * str.length);
-                    var strArr = str.split("");
+                    let strArr = str.split("");
                     strArr[randIndex] = str[randIndex].toUpperCase();
                     return strArr.join("");
                 }
@@ -374,9 +223,9 @@ bot.on('text', msg => {
                 msg.answer(commandText)
                 break;
 
-                
-                
-                
+
+
+
             case 'rpg':
 
                 if (typeof rpg[commandArgs[0]] === 'function') {
@@ -489,27 +338,26 @@ bot.on('text', msg => {
 
             case 'eval':
 
-                if (commandText.indexOf("setTimeout") !== -1 && adminID.indexOf(id) !== -1){
+                if (commandText.indexOf("setTimeout") !== -1 && adminID.indexOf(id) !== -1) {
                     msg.answer("no setTimeout because fuck you nigger")
-                }
-                else {
-                let context;
-                if (vm.exists(msg.from.id)) {
-                    context = vm.get(msg.from.id);
-                    context.stdout.removeAllListeners('data');
-                    context.stdout.unpipe();
-
-
                 } else {
-                    context = vm.create(msg.from.id);
+                    let context;
+                    if (vm.exists(msg.from.id)) {
+                        context = vm.get(msg.from.id);
+                        context.stdout.removeAllListeners('data');
+                        context.stdout.unpipe();
 
-                }
 
-                context.stdout.on('data', data => {
-                    console.log(String(data));
-                    bot.API.sendMessage(msg.chat.id, String(data));
-                });
-                context.run(commandText);
+                    } else {
+                        context = vm.create(msg.from.id);
+
+                    }
+
+                    context.stdout.on('data', data => {
+                        console.log(String(data));
+                        bot.API.sendMessage(msg.chat.id, String(data));
+                    });
+                    context.run(commandText);
                 }
 
 
@@ -529,7 +377,7 @@ bot.on('text', msg => {
 
             case 'killallevals':
 
-                var id = msg.from.id
+                let id = msg.from.id
                 if (adminID.indexOf(id) == -1) {
                     bot.API.sendMessage(msg.chat.id, 'Not authorized');
                 } else {
@@ -547,7 +395,6 @@ bot.on('text', msg => {
 
                 for (let i = 0; i < Math.floor(Math.random() * 20); i++)
                     text += Math.random() < 0.5 ? '🍎' : '🍏';
-
                 msg.answer(text);
                 break;
 
@@ -567,8 +414,8 @@ bot.on('text', msg => {
             case 'mw':
 
 
-                var regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                var mol = (commandText.match(regex) || []).join(' ');
+                let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+                let mol = (commandText.match(regex) || []).join(' ');
 
 
                 try {
@@ -592,11 +439,11 @@ bot.on('text', msg => {
                 // commandArgs[0], commandArgs[1], mol
 
                 try {
-                    var regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                    var mol = (commandArgs[2].match(regex) || []).join(' ');
-                    var molmassa = util.atomicMass(mol)
-                    var moles = commandArgs[0] * commandArgs[1];
-                    var gram = moles * molmassa;
+                    let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+                    let mol = (commandArgs[2].match(regex) || []).join(' ');
+                    let molmassa = util.atomicMass(mol)
+                    let moles = commandArgs[0] * commandArgs[1];
+                    let gram = moles * molmassa;
                     msg.answer(gram + " grams of " + commandArgs[2] + " needed for " + commandArgs[0] + "L " + commandArgs[
                         1] + "M solution.")
                 } catch (e) {
@@ -615,11 +462,11 @@ bot.on('text', msg => {
                 // commandArgs[0], commandArgs[1], mol
 
                 try {
-                    var regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                    var mol = (commandArgs[2].match(regex) || []).join(' ');
-                    var molmassa = util.atomicMass(mol)
-                    var moles = commandArgs[0] / molmassa;
-                    var volume = moles / commandArgs[1];
+                    let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+                    let mol = (commandArgs[2].match(regex) || []).join(' ');
+                    let molmassa = util.atomicMass(mol)
+                    let moles = commandArgs[0] / molmassa;
+                    let volume = moles / commandArgs[1];
                     msg.answer(volume + " liter per " + commandArgs[0] + " grams needed for a " + commandArgs[1] + "M " +
                         commandArgs[2] + " solution ")
                 } catch (e) {
@@ -640,11 +487,11 @@ bot.on('text', msg => {
                 // commandArgs[0], commandArgs[1], mol
 
                 try {
-                    var regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                    var mol = (commandArgs[2].match(regex) || []).join(' ');
-                    var molmassa = util.atomicMass(mol)
-                    var moles = commandArgs[0] / molmassa;
-                    var molair = moles / commandArgs[1];
+                    let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+                    let mol = (commandArgs[2].match(regex) || []).join(' ');
+                    let molmassa = util.atomicMass(mol)
+                    let moles = commandArgs[0] / molmassa;
+                    let molair = moles / commandArgs[1];
                     msg.answer(commandArgs[0] + " grams of " + commandArgs[2] + " per " + commandArgs[1] + " liter is " +
                         molair + " molar")
                 } catch (e) {
@@ -665,11 +512,11 @@ bot.on('text', msg => {
                 commandText = commandText.capitalizeFirstLetter()
 
                 if (pt.symbols[commandText] != undefined) {
-                    var celsius = Number(pt.symbols[commandText].boilingPoint) - 273;
+                    let celsius = Number(pt.symbols[commandText].boilingPoint) - 273;
                     msg.answer("The boiling point of " + commandText + " is " + pt.symbols[commandText].boilingPoint +
                         " K or " + celsius + "ºC")
                 } else if (pt.elements[commandText] != undefined) {
-                    var celsius = Number(pt.elements[commandText].boilingPoint) - 273;
+                    let celsius = Number(pt.elements[commandText].boilingPoint) - 273;
                     msg.answer("The boiling point of " + commandText + " is " + pt.elements[commandText].boilingPoint +
                         " K or " + celsius + "ºC")
                 } else {
@@ -683,11 +530,11 @@ bot.on('text', msg => {
                 commandText = commandText.capitalizeFirstLetter()
 
                 if (pt.symbols[commandText] != undefined) {
-                    var celsius = Number(pt.symbols[commandText].meltingPoint) - 273;
+                    let celsius = Number(pt.symbols[commandText].meltingPoint) - 273;
                     msg.answer("The melting point of " + commandText + " is " + pt.symbols[commandText].meltingPoint +
                         " K or " + celsius + "ºC")
                 } else if (pt.elements[commandText] != undefined) {
-                    var celsius = Number(pt.elements[commandText].meltingPoint) - 273;
+                    let celsius = Number(pt.elements[commandText].meltingPoint) - 273;
                     msg.answer("The melting point of " + commandText + " is " + pt.elements[commandText].meltingPoint +
                         " K or " + celsius + "ºC")
                 } else {
@@ -766,27 +613,18 @@ bot.on('text', msg => {
                 break;
 
 
-                
-                 case 'balance':
-//                 jsdom.env('http://www.webqc.org/balance.php?reaction=' + commandText.replace(/\+/g, "%2B"), ["http://code.jquery.com/jquery.js"],
-//                    function(err, window) {
-//                    let str = window.$("b:eq(1)").text() + window.$("body > table > tbody > tr:nth-child(1) > td.center.top > table.center > tbody > tr:nth-child(2) > td").text()
-//                    let lines = str.split(/\n/g);
-//                    let reaction = lines[0];
-//                    let rtype = lines[1].replace(reaction, '');
-//                    console.log(reaction + "\n" + rtype);
-//                    msg.answer(reaction + "\n" + rtype);
-//                    });
-                
-                jsdom.env('http://www.webqc.org/balance.php?reaction=' + encodeURIComponent(commandText), (err, win) => {
-  let equation = win.document.querySelector('td.center > b').textContent;
-  let reaction = win.document.querySelector('td.center > br').nextSibling.textContent;
 
-  msg.answer(equation + '\n' + reaction);
-});
+            case 'balance':
+ 
+                jsdom.env('http://www.webqc.org/balance.php?reaction=' + encodeURIComponent(commandText), (err, win) => {
+                    let equation = win.document.querySelector('td.center > b').textContent;
+                    let reaction = win.document.querySelector('td.center > br').nextSibling.textContent;
+
+                    msg.answer(equation + '\n' + reaction);
+                });
                 break;
-                
-                
+
+
 
             case 'help':
                 msg.answer(
@@ -828,10 +666,10 @@ bot.on('text', msg => {
 
             case 'nigger':
 
-                var commandNumber = parseInt(commandText)
+                let commandNumber = parseInt(commandText)
                 if (!isNaN(commandNumber)) {
                     if (commandNumber > 20) commandNumber = 20;
-                    var i = 1;
+                    let i = 1;
 
                     function loopDaWoop() {
                         setTimeout(function() {
@@ -871,7 +709,7 @@ bot.on('text', msg => {
 
 
             case 'shout':
-                var userName = msg.from.first_name
+                let userName = msg.from.first_name
 
                 userName = userName.replace(/Viktor/gi, "Gay Viktor");
                 userName = userName.replace(/Vincent/gi, "Homo Vincent");
@@ -879,20 +717,18 @@ bot.on('text', msg => {
                 userName = userName.replace(/Zed/gi, "Zed the niggerfaggot");
                 userName = userName.replace(/Panda/gi, "Pandafaggot");
 
-
-
-                var mapObj = {
+                let mapObj = {
                     "i am": userName + " is",
                     "i\'m": userName + " is",
                     "ik ben": userName + " is",
                     "jeg er": userName + " er"
-
-
                 };
+                
                 commandText = commandText.toLowerCase()
-                var shout = commandText.replace(/i am|i\'m|ik ben|jeg er/gi, function(matched) {
+                let shout = commandText.replace(/i am|i\'m|ik ben|jeg er/gi, function(matched) {
                     return mapObj[matched];
                 });
+                
                 text += shout.toUpperCase()
                 msg.answer(text + '!!!');
 
@@ -927,32 +763,23 @@ bot.on('text', msg => {
             case 'bw':
                 msg.answer(msg.text.split('').reverse().join(''));
                 break
-                
+
 
 
             case 'nignog':
-            let messageTextNig = '';
+                let messageTextNig = '';
                 for (let i = 1; i < 20; i++) {
-
-
                     let string = '';
-                    
                     if (i % 3 === 0) {
                         string += 'Nig';
                     }
-
-
                     if (i % 5 === 0) {
                         string += (string !== '' ? ' ' : '') + 'Nog';
                     }
-
-
                     if (string === '') {
                         string += i;
                     }
-
                     messageTextNig += string + "\n"
-
                 }
                 msg.answer(messageTextNig);
                 break;
@@ -978,58 +805,32 @@ bot.on('text', msg => {
 
 
             case 'heilhitler':
-                
+
                 if (adminID.indexOf(msg.from.id) == -1) {
                     msg.answer("Heil Hitler")
-                }
-                else {
-                for (let i = 0; i < hitler.length; i++){
-                 bot.API.sendSticker(msg.chat.id, hitler[i]);
-                }
-                }
-                break;
-                
-                
-            case 'bjstart':
-                msg.answer("👌 " + msg.from.first_name + " is bust.\nThe dealer draws cards 10♥️, A♠️ (21)\n💰" + msg.from.first_name + " loses all money.");
-                break;
-                
-                
-                
-//                 case 'win':
-//                
-//                if (adminID.indexOf(msg.from.id) == -1) {
-//                    msg.answer("you lose faggot")
-//                }
-//                else {
-//                for (let i = 0; i < 100; i++){
-//                    bot.API.sendDocument({
-//			chat_id: msg.chat.id,
-//			file_id: "CgADBAADBgAD6GUhUTxplYek14IAAQI"
-//		})
-//                
-//                }
-//                }
-//                break;
-//                
-                
-                
-                   case 'terribleweebcancer':
-                
-                if (adminID.indexOf(msg.from.id) == -1) {
-                    msg.answer("No")
-                }
-                else {
-                for (let i = 0; i < weeb.length; i++){
-                 bot.API.sendSticker(msg.chat.id, weeb[i]);
-                }
+                } else {
+                    for (let i = 0; i < hitler.length; i++) {
+                        bot.API.sendSticker(msg.chat.id, hitler[i]);
+                    }
                 }
                 break;
 
-            case 'test':
-                msg.answer("command " + command)
-                msg.answer("text " + commandText)
-                msg.answer("args " + commandArgs)
+
+            case 'bjstart':
+                msg.answer("👌 " + msg.from.first_name + " is bust.\nThe dealer draws cards 10♥️, A♠️ (21)\n💰" + msg.from.first_name + " loses all money.");
+                break;
+
+
+            case 'terribleweebcancer':
+
+                if (adminID.indexOf(msg.from.id) == -1) {
+                    msg.answer("No")
+                } else {
+                    for (let i = 0; i < weeb.length; i++) {
+                        bot.API.sendSticker(msg.chat.id, weeb[i]);
+                    }
+                }
+                break;
 
         }
 
@@ -1038,42 +839,26 @@ bot.on('text', msg => {
 
 
 bot.on('inline_query', q => {
-                bot.API.answerInlineQuery({
-                    inline_query_id: q.id,
-                    results: [{
-                        type: 'article',
-                        id: '1',
-                        title: 'Kek',
-                        input_message_content: {
-                            message_text: rand(jokes)
-                        }
-                    }]
-                });
-        });
+    bot.API.answerInlineQuery({
+        inline_query_id: q.id,
+        results: [{
+            type: 'article',
+            id: '1',
+            title: 'Kek',
+            input_message_content: {
+                message_text: rand(jokes)
+            }
+        }]
+    });
+});
 
-
-//
-//bot.on('photo', msg => {
-//
-//    api.forwardMessage({
-//                chat_id: -1001108622429,
-//                from_chat_id: msg._rawMessage.chat.id,
-//                message_id: msg._rawMessage.message_id
-//            }, msg);
-//    
-//
-//});
-//
-//
 
 
 bot.on('location', msg => {
 
     api.forwardMessage({
-                chat_id: -1001108622429,
-                from_chat_id: msg._rawMessage.chat.id,
-                message_id: msg._rawMessage.message_id
-            }, msg);
-    
-
+        chat_id: '@fatboner',
+        from_chat_id: msg._rawMessage.chat.id,
+        message_id: msg._rawMessage.message_id
+    }, msg);
 });
