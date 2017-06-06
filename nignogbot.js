@@ -377,7 +377,7 @@ bot.on('text', msg => {
                 let spongemock = caps(commandText);
                 bot.API.sendPhoto({
                     chat_id: msg.chat.id,
-                    photo: 'AgADBAAD5KkxG_insVEqWYY9gYd5LbhYRBkABN9N_vkXdq4snzsBAAEC',
+                    photo: 'AgADBAADWqkxGy52sFFQWcLe-rjPEtHNZBkABOqgTuPPQ8Bgxl4AAgI',
                     caption: spongemock
                 });
                 

@@ -31,3 +31,5 @@ node_modules
 chatlogs/*.html
 
 secret.json
+
+aa.js
