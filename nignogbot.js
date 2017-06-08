@@ -476,14 +476,6 @@ bot.on('text', msg => {
 				getPubchemImage(commandText)
 					.then(image => msg.answer(image))
 					.catch(() => msg.answer('Not found'));
-                jsdom.env('https://pubchem.ncbi.nlm.nih.gov/compound/' + commandText,
-                    function(err, window) {
-                        let imageElement = window.document.querySelector('.structure-img');
-                        if (imageElement)
-                            msg.answer(imageElement.src);
-                        else
-                            msg.answer('Not found')
-                    });
                 break;
 
 
