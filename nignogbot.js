@@ -24,12 +24,13 @@ const request = require('request');
 const util = require('periodic-table/util');
 const pubchem = require("pubchem-access")
     .domain("compound");
-const jsdom = require('jsdom');
+const jsdom = require('jsdom/lib/old-api.js');
 
 // Includes
 const { jokes, help, nigger, actions, atom, hitler, weeb, nameFirst, nameLast, fortune } = require('./modules/jsons.js');
 const VM = require('./modules/vm.js');
 const DrugRPG = require('./modules/drugrpg.js');
+const getPubchemImage = require('./modules/pubchemimage');
 
 // Global vars and shit
 const messageFolder = 'chatlogs';
@@ -472,6 +473,9 @@ bot.on('text', msg => {
 
                 
             case 'mol':
+				getPubchemImage(commandText)
+					.then(image => msg.answer(image))
+					.catch(() => msg.answer('Not found'));
                 jsdom.env('https://pubchem.ncbi.nlm.nih.gov/compound/' + commandText,
                     function(err, window) {
                         let imageElement = window.document.querySelector('.structure-img');
