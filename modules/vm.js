@@ -23,7 +23,7 @@ const VM = function VM () {
 
 	this.create = function CreateVM (id, stream) {
 		id = Number(id);
-		contexts[id] = cp.spawn('node', ['sandbox.js']);
+		contexts[id] = cp.spawn('node', ['./modules/sandbox.js']);
 		if(typeof stream !== 'undefined') contexts[id].pipe(stream);
 		contexts[id].on('exit', () => delete contexts[id]);
 		return self.get(id);

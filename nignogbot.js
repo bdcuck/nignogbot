@@ -178,8 +178,8 @@ bot.on('text', msg => {
                     context.run(commandText);
                 }
                 break;
-
-
+                
+                
             case 'killeval':
                 if (vm.exists(msg.from.id)) {
                     vm.destroy(msg.from.id);
