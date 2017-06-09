@@ -12,7 +12,7 @@ Crappy nignogbot.js code to be cleaned up, then merge with logger.js
 
 [ ] logger.js sometimes appends the same messages or a series of messages repeatedly (seems to happen in busy spammy chats).
 
-[ ] Inline does not return random joke, randomness depends on input
+[?] Inline does not return random joke, randomness depends on input -- Possibly fixed, NEEDS TESTING
 
 [-] Unresolved promise errors in `stat` and `unlink`, sort of fixed by dumping some .catch() everywhere
 
