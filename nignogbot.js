@@ -715,6 +715,7 @@ bot.on('text', msg => {
 bot.on('inline_query', q => {
     bot.API.answerInlineQuery({
         inline_query_id: q.id,
+        cache_time: 0,
         results: [{
             type: 'article',
             id: '1',
