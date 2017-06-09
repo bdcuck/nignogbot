@@ -5,7 +5,8 @@ Crappy nignogbot.js code to be cleaned up, then merge with logger.js
 
 ## Issues / To do
 
-[ ] The /mol command does not get 2D molecule png. The jsdom shit is broken because DOM element on pubchem changed somewhere and I'm too retarded to figure it out.
+[X] The /mol command does not get 2D molecule png. The jsdom shit is broken because DOM element on pubchem changed somewhere and I'm too retarded to figure it out.
+--fixed by @TRGWII
     
 [X] Merge logger.js to a decent clean version of nignogbot.js to get fancy logging nignogbot.
 
