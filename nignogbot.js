@@ -30,7 +30,7 @@ const jsdom = require('jsdom/lib/old-api.js');
 const { jokes, help, nigger, actions, atom, hitler, weeb, nameFirst, nameLast, fortune } = require('./modules/jsons.js');
 const VM = require('./modules/vm.js');
 const DrugRPG = require('./modules/drugrpg.js');
-const getPubchemImage = require('./modules/pubchemimage');
+const getPubchemImage = require('./modules/pubchemimage.js');
 
 // Global vars and shit
 const messageFolder = 'chatlogs';
@@ -475,7 +475,7 @@ bot.on('text', msg => {
             case 'mol':
 				getPubchemImage(commandText)
 					.then(image => msg.answer(image))
-					.catch(() => msg.answer('Not found'));
+					.catch(() => msg.answer('Structure not found'));
                 break;
 
 
