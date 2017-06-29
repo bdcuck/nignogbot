@@ -19,100 +19,109 @@ const { sep } = require('path');
 // NPM dependencies
 const geoip = require('geoip-lite');
 const math = require('mathjs');
-const pt = require('periodic-table')
-const request = require('request');
+const pt = require('periodic-table');
 const util = require('periodic-table/util');
-const pubchem = require("pubchem-access")
-    .domain("compound");
+const pubchem = require('pubchem-access')
+	.domain('compound');
 const jsdom = require('jsdom/lib/old-api.js');
 
 // Includes
-const { jokes, help, nigger, actions, atom, hitler, weeb, nameFirst, nameLast, fortune } = require('./modules/jsons.js');
+const {
+	jokes, help, nigger,
+	actions, hitler, weeb,
+	nameFirst, nameLast, fortune
+} = require('./modules/jsons.js');
 const VM = require('./modules/vm.js');
 const DrugRPG = require('./modules/drugrpg.js');
 const getPubchemImage = require('./modules/pubchemimage.js');
 
 // Global vars and shit
 const messageFolder = 'chatlogs';
-const adminID = [126131628];
+const adminID = [ 126131628 ];
 const rpg = new DrugRPG();
 const vm = new VM();
 let day = 0;
-let runningGames = {};
+const runningGames = {};
 
 // Global functions and shit
 const date = () => new Date().toLocaleString().split('.')[0].replace('T', ' ');
-const rand = (nigger) => nigger[Math.floor(Math.random() * nigger.length)];
-const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const rand = arr => arr[Math.floor(Math.random() * nigger.length)];
+const capitalizeFirstLetter = (str) =>
+	str.charAt(0).toUpperCase() + str.slice(1);
 const getRandomName = () => rand(nameFirst) + ' ' + rand(nameLast);
 const caps = (str) => {
-    let strArr = str.toLowerCase().split('');
-    for (let i = 0; i < strArr.length; i++){
-        strArr[i] = Math.random() < 0.5 ? strArr[i] : strArr[i].toUpperCase();
-    }
-    return strArr.join("");
-}
+	const strArr = str.toLowerCase().split('');
+	for (let i = 0; i < strArr.length; i++)
+		strArr[i] = 0.5 > Math.random() ? strArr[i] : strArr[i].toUpperCase();
+	return strArr.join('');
+};
 
 const promisify = fn => (...args) =>
-    new Promise((resolve, reject) =>
-        fn(...args, (err, ...results) => {
-            if (err) reject(err);
-            else {
-                if (results.length > 1)
-                    resolve(results);
-                else
-                    resolve(results[0]);
-            }
-        }));
+	new Promise((resolve, reject) =>
+		fn(...args, (err, ...results) => {
+			if (err) return reject(err);
+			return 1 === results.length
+				? resolve(results[0])
+				: resolve(results);
+		}));
 
 const stat = promisify(fs.stat);
 const deleteFile = promisify(fs.unlink);
 const appendFile = promisify(fs.appendFile);
-const size = file => stat(file).then(stats => stats.size / 1024).catch(stats => 0);
+const size = file =>
+	stat(file).then(stats => stats.size / 1024).catch(() => 0);
+
 const exists = file => stat(file)
-    .then(() => true)
-    .catch(() => false);
+	.then(() => true)
+	.catch(() => false);
 
 // Logging lmao
 const saveMessage = msg => {
-    const id = msg.chat.id;
-    const file = messageFolder + sep + id + '.html';
-    const message =
-        '<h3>From: ' + (msg.from.username ? msg.from.first_name + ' - @' + msg.from.username : msg.from.first_name) + ' [' + date() + ']:</h3>' + (msg.text ? '<p>' + msg.text + '</p>' : '<p>[Picture] ID= ' + msg._fileId + '</p>');
-    const header = '<h1>***\nChat: ' + (msg.chat.title ? msg.chat.title + '( id: ' + msg.chat.id + ') ': 'Private chat ') + '\n***\n</h1>'
-    return exists(file).then(exists => {
-            if (!exists) {
-                appendFile(file, header);
-            }
-            appendFile(file, message);
-        return file;
-        })
-        .then(size)
-        .then(size => {
-            if (size > 15) {
-                const sendfile = new InputFile(fs.createReadStream(file), 'Chat' + id + '(' + date() + ').html');
-                bot.API.sendDocument({
-                    chat_id: '@fatboner',
-                    document: sendfile
-                }).then(() => deleteFile(file))
-                  .catch(() => console.log('Fucking unlink fail'));
-            }
-        });
+	const { id } = msg.chat;
+	const file = messageFolder + sep + id + '.html';
+	const message =
+		'<h3>From: ' + (msg.from.username
+			? msg.from.first_name + ' - @' + msg.from.username
+			: msg.from.first_name) +
+		' [' + date() + ']:</h3>' + (msg.text
+			? '<p>' + msg.text + '</p>'
+			: '<p>[Picture] ID= ' + msg._fileId + '</p>');
+	const header = '<h1>***\nChat: ' + (msg.chat.title
+		? msg.chat.title + '( id: ' + msg.chat.id + ') '
+		: 'Private chat ') + '\n***\n</h1>';
+	return exists(file).then(ex => {
+		if (!ex)
+			appendFile(file, header);
+		appendFile(file, message);
+		return file;
+	})
+		.then(size)
+		.then(fileSize => {
+			if (15 < fileSize) {
+				const sendfile = new InputFile(
+					fs.createReadStream(file),
+					'Chat' + id + '(' + date() + ').html');
+				bot.API.sendDocument({
+					chat_id: '@fatboner',
+					document: sendfile
+				}).then(() => deleteFile(file))
+					.catch(() => console.log('Fucking unlink fail'));
+			}
+		});
 };
 
 // getMe
 bot.username = 'bot';
 https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
-    let data = '';
-    res.on('data', d => data += d);
-    res.on('end', () => {
-        data = JSON.parse(data)
-            .result;
-        if (debug) console.log('/getMe: ', data);
-        bot.id = data.id;
-        bot.first_name = data.first_name;
-        bot.username = data.username;
-    });
+	let data = '';
+	res.on('data', d => data += d);
+	res.on('end', () => {
+		data = JSON.parse(data).result;
+		if (debug) console.log('/getMe: ', data);
+		bot.id = data.id;
+		bot.first_name = data.first_name;
+		bot.username = data.username;
+	});
 });
 
 // Botmagic happens here lmao
@@ -122,471 +131,460 @@ bot.on('text', saveMessage);
 
 bot.on('text', msg => {
 
-    if (debug) {
-    let dateSent = new Date().toLocaleString().split('.')[0].replace('T', ' ');
-    console.log("Date: " + date());
-    console.log("Text: " + JSON.stringify(msg.text));
-    console.log("From: " + JSON.stringify(msg.from));
-    console.log("Chat: " + JSON.stringify(msg.chat) + "\n");
-    }
-    
-    if (msg.text.indexOf('/') === 0) {
+	if (debug) {
+		console.log('Date: ' + date());
+		console.log('Text: ' + JSON.stringify(msg.text));
+		console.log('From: ' + JSON.stringify(msg.from));
+		console.log('Chat: ' + JSON.stringify(msg.chat) + '\n');
+	}
 
-        let commandArgs = msg.text.split(/\s+/);
-        let command = commandArgs.shift();
-        command = command.substr(1).split('@')[0];
-        command = command.toLowerCase()
-        let commandText = commandArgs.join(' ');
-        let text = '';
+	if (0 === msg.text.indexOf('/')) {
 
-        switch (command) {
-            
-                
-// Standard bot commands         
-            case 'start':
-                msg.answer('Hello ' + (msg.from.username ? '@' + msg.from.username : msg.from.first_name) + ', I am @' + bot.username + '\n' + help);
-                break;
+		const commandArgs = msg.text.split(/\s+/);
+		let command = commandArgs.shift();
+		[ command ] = command.substr(1).split('@');
+		command = command.toLowerCase();
+		let commandText = commandArgs.join(' ');
+		const { id } = msg.from;
+		let text = '';
 
-                
-            case 'help':
-                msg.answer('Hello ' + (msg.from.username ? '@' + msg.from.username : msg.from.first_name) + 'I am @' + bot.username + ' ,created by [@]bdnugget\n' + help);
-                break;
+		switch (command) {
 
-                
-            case 'debug':
-                bot.API.sendMessage(msg.chat.id, '<pre>' + JSON.stringify(msg.rawMessage, undefined, '  ') + '</pre>', 'HTML');
-                break;             
-                
-       
-                
-// Eval JS
-            case 'eval':
-                if (commandText.indexOf("setTimeout") !== -1 && adminID.indexOf(id) !== -1) {
-                    msg.answer("no setTimeout because fuck you nigger")
-                } else {
-                    let context;
-                    if (vm.exists(msg.from.id)) {
-                        context = vm.get(msg.from.id);
-                        context.stdout.removeAllListeners('data');
-                        context.stdout.unpipe();
-                    } else {
-                        context = vm.create(msg.from.id);
-                    }
-                    context.stdout.on('data', data => {
-                        bot.API.sendMessage(msg.chat.id, String(data));
-                    });
-                    context.run(commandText);
-                }
-                break;
-                
-                
-            case 'killeval':
-                if (vm.exists(msg.from.id)) {
-                    vm.destroy(msg.from.id);
-                    bot.API.sendMessage(msg.chat.id, 'Killed sandbox process');
-                } else bot.API.sendMessage(msg.chat.id, 'No process active');
-                break;
+		// Standard bot commands
+		case 'start':
+			msg.answer('Hello ' + (msg.from.username
+				? '@' + msg.from.username
+				: msg.from.first_name) +
+			', I am @' + bot.username + '\n' + help);
+			break;
 
+		case 'help':
+			msg.answer('Hello ' + (msg.from.username
+				? '@' + msg.from.username
+				: msg.from.first_name) +
+				'I am @' + bot.username + ' ,created by [@]bdnugget\n' + help);
+			break;
 
-            case 'killallevals':
-                let id = msg.from.id
-                if (adminID.indexOf(id) == -1) {
-                    bot.API.sendMessage(msg.chat.id, 'Not authorized');
-                } else {
-                    vm.destroyAll();
-                    bot.API.sendMessage(msg.chat.id, 'Killed all processes');
-                }
-                break;
+		case 'debug':
+			bot.API.sendMessage(msg.chat.id,
+				'<pre>' + JSON.stringify(msg.rawMessage, null, '  ') + '</pre>',
+				'HTML');
+			break;
 
-                
-          
-// General non-trolling
-            case 'geoip':
-                let geo = geoip.lookup(commandArgs[0]);
-                if (!geo) {
-                    dns.lookup(commandArgs[0], (err, addr) => {
-                        if (err) return bot.API.sendMessage(msg.chat.id, 'Error: ' + err.message);
-                        geo = geoip.lookup(addr);
-                        if (geo) bot.API.sendLocation(msg.chat.id, geo.ll[0], geo.ll[1]);
-                        else bot.API.sendMessage(msg.chat.id, 'Not found');
-                    });
-                } else bot.API.sendLocation(msg.chat.id, geo.ll[0], geo.ll[1]);
-                break;
-                
-                     
-            case 'math':
-                try {
-                    let result = math.eval(commandText);
-                    msg.answer(String(result));
-                } catch (err) {
-                    if (err.message.length > 0)
-                        msg.answer('Error: ' + String(err.message));
-                }
-                break;
-                
-                
-                
- // General trolling
-            case 'twat':
-                if (commandText) {
-                    let tweet = commandText + " - " + msg.from.first_name;
-                    if (tweet.length < 141) {
-                        Twitter.post('statuses/update', {
-                            status: tweet
-                        }, function(error, tweet, response) {
-                            if (error) {
-                                msg.answer(error);
-                            }
-                            msg.answer("Messaged tweeted https://twitter.com/rambodildo");
-                        });
-                    } else {
-                        msg.answer("Too long, you boner!")
-                    }
-                } else {
-                    msg.answer("You forgot your message retard")
-                }
-                break;
+		// Eval JS
+		case 'eval':
+			if (
+				-1 !== commandText.indexOf('setTimeout') &&
+				-1 !== adminID.indexOf(id)
+			) {
+				msg.answer('no setTimeout because fuck you nigger');
+			} else {
+				let context;
+				if (vm.exists(msg.from.id)) {
+					context = vm.get(msg.from.id);
+					context.stdout.removeAllListeners('data');
+					context.stdout.unpipe();
+				} else {
+					context = vm.create(msg.from.id);
+				}
+				context.stdout.on('data', data => {
+					bot.API.sendMessage(msg.chat.id, String(data));
+				});
+				context.run(commandText);
+			}
+			break;
 
-                
-            case 'gayname':
-                msg.answer(msg.from.first_name + " aka " + getRandomName())
-                break;
-
-                
-            case 'monopoly':
-                msg.answer("Go to jail.")
-                break;
+		case 'killeval':
+			if (vm.exists(msg.from.id)) {
+				vm.destroy(msg.from.id);
+				bot.API.sendMessage(msg.chat.id, 'Killed sandbox process');
+			} else {
+				bot.API.sendMessage(msg.chat.id, 'No process active');
+			}
+			break;
 
 
-            case 'fortune':
-                msg.answer(rand(fortune));
-                break;
+		case 'killallevals':
+			if (-1 === adminID.indexOf(id)) {
+				bot.API.sendMessage(msg.chat.id, 'Not authorized');
+			} else {
+				vm.destroyAll();
+				bot.API.sendMessage(msg.chat.id, 'Killed all processes');
+			}
+			break;
 
-                
-            case 'lenny':
-                bot.API.sendMessage(msg.chat.id, "( ͡° ͜ʖ ͡°)")
-                break;
+		// General non-trolling
+		case 'geoip': {
+			let geo = geoip.lookup(commandArgs[0]);
+			if (geo)
+				bot.API.sendLocation(msg.chat.id, geo.ll[0], geo.ll[1]);
+			else
+				dns.lookup(commandArgs[0], (err, addr) => {
+					if (err) return bot.API
+						.sendMessage(msg.chat.id, 'Error: ' + err.message);
+					geo = geoip.lookup(addr);
+					return geo
+						? bot.API.sendLocation(msg.chat.id,
+							geo.ll[0], geo.ll[1])
+						: bot.API.sendMessage(msg.chat.id, 'Not found');
+				});
+			break;
+		}
 
-                
-            case 'poopoo':
-                for (let i = 0; i < Math.floor(Math.random() * 20); i++) {
-                    text += "\u{1F4A9}";
-                }
-                msg.answer(text);
-                break;
+		case 'math':
+			try {
+				const result = math.eval(commandText);
+				msg.answer(String(result));
+			} catch (err) {
+				if (0 < err.message.length)
+					msg.answer('Error: ' + String(err.message));
+			}
+			break;
 
+		// General trolling
+		case 'twat':
+			if (commandText) {
+				const tweet = commandText + ' - ' + msg.from.first_name;
+				if (140 >= tweet.length)
+					Twitter.post('statuses/update', {
+						status: tweet
+					}, (err) => {
+						if (err)
+							msg.answer(err);
+						msg.answer(
+							'Messaged tweeted https://twitter.com/rambodildo');
+					});
+				else
+					msg.answer('Too long, you boner!');
+			} else {
+				msg.answer('You forgot your message retard');
+			}
+			break;
 
-            case 'apple':
-                for (let i = 0; i < Math.floor(Math.random() * 20); i++)
-                    text += Math.random() < 0.5 ? '🍎' : '🍏';
-                msg.answer(text);
-                break;
+		case 'gayname':
+			msg.answer(msg.from.first_name + ' aka ' + getRandomName());
+			break;
 
-                
-            case 'nigger':
-                let commandNumber = parseInt(commandText)
-                if (!isNaN(commandNumber)) {
-                    if (commandNumber > 20) commandNumber = 20;
-                    let i = 1;
+		case 'monopoly':
+			msg.answer('Go to jail.');
+			break;
 
-                    function loopDaWoop() {
-                        setTimeout(function() {
-                            msg.answer('nigger ' + i);
-                            i++;
-                            if (i < commandNumber + 1) {
-                                loopDaWoop();
-                            }
-                        }, 1000)
-                    }
-                    loopDaWoop();
-                } else {
-                    msg.answer("nignog a number")
-                }
-                break;
+		case 'fortune':
+			msg.answer(rand(fortune));
+			break;
 
+		case 'lenny':
+			bot.API.sendMessage(msg.chat.id, '( ͡° ͜ʖ ͡°)');
+			break;
 
-            case 'jew':
-                for (let i = 0; i < Math.floor(Math.random() * 20); i++)
-                    text += Math.random() < 0.5 ? '卐' : '卍';
-                msg.answer(text);
-                break;
-                
+		case 'poopoo':
+			for (let i = 0; i < Math.floor(Math.random() * 20); i++)
+				text += '\u{1F4A9}';
+			msg.answer(text);
+			break;
 
-            case 'sim':
-                day++;
-                msg.answer("Day " + day + ": " + rand(actions));
-                break;
+		case 'apple':
+			for (let i = 0; i < Math.floor(Math.random() * 20); i++)
+				text += 0.5 > Math.random() ? '🍎' : '🍏';
+			msg.answer(text);
+			break;
 
+		case 'nigger': {
+			let commandNumber = parseInt(commandText);
+			if (isNaN(commandNumber)) {
+				msg.answer('nignog a number');
+			} else {
+				if (20 < commandNumber) commandNumber = 20;
+				let i = 1;
 
-            case 'shout':
-                let userName = msg.from.first_name
+				(function loopDaWoop() {
+					setTimeout(() => {
+						msg.answer('nigger ' + i);
+						i++;
+						if (i < commandNumber + 1)
+							loopDaWoop();
+					}, 1000);
+				})();
+			}
+			break;
+		}
 
-                userName = userName.replace(/Viktor/gi, "Gay Viktor");
-                userName = userName.replace(/Vincent/gi, "Homo Vincent");
-                userName = userName.replace(/Rico/gi, "Rico the gay cucklord");
-                userName = userName.replace(/Zed/gi, "Zed the niggerfaggot");
-                userName = userName.replace(/Panda/gi, "Pandafaggot");
+		case 'jew':
+			for (let i = 0; i < Math.floor(Math.random() * 20); i++)
+				text += 0.5 > Math.random() ? '卐' : '卍';
+			msg.answer(text);
+			break;
 
-                let mapObj = {
-                    "i am": userName + " is",
-                    "i\'m": userName + " is",
-                    "ik ben": userName + " is",
-                    "jeg er": userName + " er"
-                };
-                
-                commandText = commandText.toLowerCase()
-                let shout = commandText.replace(/i am|i\'m|ik ben|jeg er/gi, function(matched) {
-                    return mapObj[matched];
-                });
-                
-                text += shout.toUpperCase()
-                msg.answer(text + '!!!');
-                break;
+		case 'sim':
+			day++;
+			msg.answer('Day ' + day + ': ' + rand(actions));
+			break;
 
+		case 'shout': {
+			let userName = msg.from.first_name;
+			userName = userName.replace(/Viktor/gi, 'Gay Viktor');
+			userName = userName.replace(/Vincent/gi, 'Homo Vincent');
+			userName = userName.replace(/Rico/gi, 'Rico the gay cucklord');
+			userName = userName.replace(/Zed/gi, 'Zed the niggerfaggot');
+			userName = userName.replace(/Panda/gi, 'Pandafaggot');
 
-            case 'n':
-                msg.answer(rand(nigger));
-                break;
+			const mapObj = {
+				'i am': userName + ' is',
+				'i\'m': userName + ' is',
+				'ik ben': userName + ' is',
+				'jeg er': userName + ' er'
+			};
 
+			commandText = commandText.toLowerCase();
+			const shout = commandText.replace(/i am|i'm|ik ben|jeg er/gi,
+				matched => mapObj[matched]);
 
-            case 'kek':
-                msg.answer(rand(jokes));
-                break;
+			text += shout.toUpperCase();
+			msg.answer(text + '!!!');
+			break;
+		}
 
+		case 'n':
+			msg.answer(rand(nigger));
+			break;
 
-            case 'nignog':
-                let messageTextNig = '';
-                for (let i = 1; i < 20; i++) {
-                    let string = '';
-                    if (i % 3 === 0) {
-                        string += 'Nig';
-                    }
-                    if (i % 5 === 0) {
-                        string += (string !== '' ? ' ' : '') + 'Nog';
-                    }
-                    if (string === '') {
-                        string += i;
-                    }
-                    messageTextNig += string + "\n"
-                }
-                msg.answer(messageTextNig);
-                break;
+		case 'kek':
+			msg.answer(rand(jokes));
+			break;
 
-                
-            case 'sponge':
-                if (!commandText) commandText = 'I\'m too retarded to type some text'
-                let spongemock = caps(commandText);
-                bot.API.sendPhoto({
-                    chat_id: msg.chat.id,
-                    photo: 'AgADBAADWqkxGy52sFFQWcLe-rjPEtHNZBkABOqgTuPPQ8Bgxl4AAgI',
-                    caption: spongemock
-                });
-                
-                break;
-                
-                
-                
-// Admin only trolling           
-            case 'heilhitler':
-                if (adminID.indexOf(msg.from.id) == -1) {
-                    msg.answer("Heil Hitler")
-                } else {
-                    for (let i = 0; i < hitler.length; i++) {
-                        bot.API.sendSticker(msg.chat.id, hitler[i]);
-                    }
-                }
-                break;
+		case 'nignog': {
+			let messageTextNig = '';
+			for (let i = 1; 20 > i; i++) {
+				let string = '';
+				if (0 === i % 3)
+					string += 'Nig';
+				if (0 === i % 5)
+					string += ('' === string ? '' : ' ') + 'Nog';
+				if ('' === string)
+					string += i;
+				messageTextNig += string + '\n';
+			}
+			msg.answer(messageTextNig);
+			break;
+		}
 
+		case 'sponge': {
+			if (!commandText) commandText =
+				'I\'m too retarded to type some text';
+			const spongemock = caps(commandText);
+			bot.API.sendPhoto({
+				caption: spongemock,
+				chat_id: msg.chat.id,
+				photo: 'AgADBAADWqkxGy52sFFQWcLe-rjPEtHNZBkABOqgTuPPQ8Bgxl4AAgI'
 
-            case 'terribleweebcancer':
-                if (adminID.indexOf(msg.from.id) == -1) {
-                    msg.answer("No")
-                } else {
-                    for (let i = 0; i < weeb.length; i++) {
-                        bot.API.sendSticker(msg.chat.id, weeb[i]);
-                    }
-                }
-                break;
+			});
+			break;
+		}
 
-                
+		// Admin only trolling
+		case 'heilhitler':
+			if (-1 === adminID.indexOf(msg.from.id))
+				msg.answer('Heil Hitler');
+			else
+				for (let i = 0; i < hitler.length; i++)
+					bot.API.sendSticker(msg.chat.id, hitler[i]);
+			break;
 
-// Gay games
-            case 'rpg':
-                if (typeof rpg[commandArgs[0]] === 'function') {
-                    if (runningGames[msg.from.id]) msg.answer(runningGames[msg.from.id][commandArgs[0]](commandArgs[1]) + " ");
-                    else {
-                        runningGames[msg.from.id] = new DrugRPG();
-                        msg.answer(runningGames[msg.from.id][commandArgs[0]](commandArgs[1]) + " ");
-                    }
-                } else {
-                    msg.answer("Commands are: buy, make, sell, bribe, dealer and stats")
-                }
-                break;
+		case 'terribleweebcancer':
+			if (-1 === adminID.indexOf(msg.from.id))
+				msg.answer('No');
+			else
+				for (let i = 0; i < weeb.length; i++)
+					bot.API.sendSticker(msg.chat.id, weeb[i]);
+			break;
 
+		// Gay games
+		case 'rpg':
+			if ('function' === typeof rpg[commandArgs[0]])
+				if (runningGames[msg.from.id]) {
+					msg.answer(runningGames[msg.from.id][commandArgs[0]](
+						commandArgs[1]) + ' ');
+				} else {
+					runningGames[msg.from.id] = new DrugRPG();
+					msg.answer(runningGames[msg.from.id][commandArgs[0]](
+						commandArgs[1]) + ' ');
+				}
+			else
+				msg.answer(
+					'Commands are: buy, make, sell, bribe, dealer and stats');
+			break;
 
-            case 'kekget':
-                for (let i = 0; i < Math.floor(Math.random() * 20); i++) {
-                    text += Math.random() < 0.5 ? 'K' : 'E';
-                }
-                if (text === "KEK") {
-                    bot.API.sendMessage(msg.chat.id, text + "\nYOU WIN TOPKEK!!!");
-                } else if (text === "KKK") {
-                    bot.API.sendMessage(msg.chat.id, text +
-                        "\nYOU WIN TOPKKK HEIL HITLER!!!");
-                } else if (text === "KEKKEK") {
-                    bot.API.sendMessage(msg.chat.id, text + "\nYOU WIN DOUBLE TOPKEKKEK!!!");
-                } else if (text === "KEKKEKKEK") {
-                    bot.API.sendMessage(msg.chat.id, text +
-                        "\nYOU WIN ULTIMATE TRIPLE TOPKEKKEKKEK!!!");
-                } else if (text === "KEKKEKKEKKEK") {
-                    bot.API.sendMessage(msg.chat.id, text +
-                        "\nQUADDRUPPLE TOPKEKKEKKEKKEK!!! YOU ARE GAY!!!");
-                } else if (text === "KEKKEKKEKKEKKEK") {
-                    bot.API.sendMessage(msg.chat.id, text +
-                        "\nQUINTUPLE TOPKEKKEKKEKKEKKEK!!! UNBELIEVABLE M8!!!");
-                } else {
-                    bot.API.sendMessage(msg.chat.id, text + "\nLength: \n" + text.length);
-                }
-                break;
+		case 'kekget':
+			for (let i = 0; i < Math.floor(Math.random() * 20); i++)
+				text += 0.5 > Math.random() ? 'K' : 'E';
+			if ('KEK' === text)
+				bot.API.sendMessage(msg.chat.id, text + '\nYOU WIN TOPKEK!!!');
+			else if ('KKK' === text)
+				bot.API.sendMessage(msg.chat.id, text +
+					'\nYOU WIN TOPKKK HEIL HITLER!!!');
+			else if ('KEKKEK' === text)
+				bot.API.sendMessage(msg.chat.id, text +
+					'\nYOU WIN DOUBLE TOPKEKKEK!!!');
+			else if ('KEKKEKKEK' === text)
+				bot.API.sendMessage(msg.chat.id, text +
+					'\nYOU WIN ULTIMATE TRIPLE TOPKEKKEKKEK!!!');
+			else if ('KEKKEKKEKKEK' === text)
+				bot.API.sendMessage(msg.chat.id, text +
+					'\nQUADDRUPPLE TOPKEKKEKKEKKEK!!! YOU ARE GAY!!!');
+			else if ('KEKKEKKEKKEKKEK' === text)
+				bot.API.sendMessage(msg.chat.id, text +
+					'\nQUINTUPLE TOPKEKKEKKEKKEKKEK!!! UNBELIEVABLE M8!!!');
+			else
+				bot.API.sendMessage(msg.chat.id, text +
+					'\nLength: \n' + text.length);
+			break;
 
+		case 'bjstart':
+			// Placeholder for an actual BJ game
+			msg.answer('👌 ' + msg.from.first_name +
+				' is bust.\nThe dealer draws cards 10♥️, A♠️ (21)\n💰' +
+				msg.from.first_name + ' loses all money.');
+			break;
 
-            case 'bjstart':
-            // Placeholder for an actual BJ game
-                msg.answer("👌 " + msg.from.first_name + " is bust.\nThe dealer draws cards 10♥️, A♠️ (21)\n💰" + msg.from.first_name + " loses all money.");
-                break;
+		// Chemistry                    
+		case 'cas':
+			pubchem
+				.setName(commandText)
+				.getCas()
+				.execute((data, status) =>
+					1 === status
+						? msg.answer(data + ' ')
+						: msg.answer(data + ', status: ' + status));
+			break;
 
-                
-                
- // Chemistry                    
-            case 'cas':
-                pubchem
-                    .setName(commandText)
-                    .getCas()
-                    .execute(function(data, status) {
-                        if (status != 1) {
-                            msg.answer(data + ", status: " + status);
-                        } else {
-                            msg.answer(data + ' ')
-                        }
-                    });
-                break;
+		case 'mol':
+			getPubchemImage(commandText)
+				.then(image => msg.answer(image))
+				.catch(() => msg.answer('Structure not found'));
+			break;
 
-                
-            case 'mol':
-				getPubchemImage(commandText)
-					.then(image => msg.answer(image))
-					.catch(() => msg.answer('Structure not found'));
-                break;
+		case 'synonym':
+			pubchem
+				.setName(commandText)
+				.getNames(5)
+				.execute(data =>
+					msg.answer(
+						data[0] + ', ' +
+						data[1] + ', ' +
+						data[2] + ', ' +
+						data[3] + ', ' +
+						data[4]));
+			break;
 
+		case 'prop':
+			pubchem
+				.setName(commandText)
+				.getProperties([
+					'IUPACName',
+					'MolecularWeight',
+					'MolecularFormula',
+					'CanonicalSMILES'
+				])
+				.execute(data =>
+					msg.answer(
+						'IUPAC name: ' + data.IUPACName +
+						',\nMW: ' + data.MolecularWeight +
+						',\nFormula: ' + data.MolecularFormula +
+						', \nSMILES: ' + data.CanonicalSMILES));
+			break;
 
-            case 'synonym':
-                pubchem
-                    .setName(commandText)
-                    .getNames(5)
-                    .execute(function(data) {
-                        msg.answer(data[0] + ", " + data[1] + ", " + data[2] + ", " + data[3] + ", " + data[4]);
-                    });
-                break;
+		case 'medchem':
+			pubchem
+				.setName(commandText)
+				.getProperties([
+					'IUPACName',
+					'XLogP',
+					'Complexity',
+					'HBondDonorCount',
+					'HBondAcceptorCount',
+					'RotatableBondCount',
+					'TPSA'
+				])
+				.execute(data =>
+					msg.answer(
+						'IUPAC name: ' + data.IUPACName +
+						',\nXLogP: ' + data.XLogP +
+						',\nComplexity: ' + data.Complexity +
+						', \nH-bond donors: ' + data.HBondDonorCount +
+						', \nH-bond acceptors: ' + data.HBondAcceptorCount +
+						', \nRotatable bonds: ' + data.RotatableBondCount +
+						', \nTopological polar surface area: ' + data.TPSA));
+			break;
 
+		case 'sym':
+			commandText = capitalizeFirstLetter(commandText);
+			if (pt.symbols[commandText])
+				msg.answer(pt.symbols[commandText].name + '');
+			else if (pt.elements[commandText])
+				msg.answer(pt.elements[commandText].symbol + '');
+			else
+				msg.answer('Not found!');
+			break;
 
+		case 'mw': {
+			const regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+			const mol = (commandText.match(regex) || []).join(' ');
+			try {
+				msg.answer('The molar mass of ' + commandText +
+					' is: ' + util.atomicMass(mol) + 'g/mol');
+			} catch (e) {
+				if (e instanceof TypeError)
+					msg.answer('Error, improper formatting, kek');
+				else
+					throw e;
+			}
+			break;
+		}
 
-            case 'prop':
-                pubchem
-                    .setName(commandText)
-                    .getProperties(["IUPACName", "MolecularWeight", "MolecularFormula", "CanonicalSMILES"])
-                    .execute(function(data) {
-                        msg.answer(
-                            "IUPAC name: " + data.IUPACName +
-                            ",\nMW: " + data.MolecularWeight + ",\nFormula: " + data.MolecularFormula + ", \nSMILES: " + data.CanonicalSMILES
-                        );
-                    });
-                break;
+		case 'mass':
+			// volume(L), molariteit(mol/L), formulemolmassa
+			// commandArgs[0], commandArgs[1], mol
+			try {
+				const regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+				const mol = (commandArgs[2].match(regex) || []).join(' ');
+				const molmassa = util.atomicMass(mol);
+				const moles = commandArgs[0] * commandArgs[1];
+				const gram = moles * molmassa;
+				msg.answer(gram + ' grams of ' + commandArgs[2] +
+					' needed for ' + commandArgs[0] + 'L ' +
+					commandArgs[1] + 'M solution.');
+			} catch (e) {
+				if (e instanceof TypeError)
+					msg.answer('improper formatting');
+				else
+					throw e;
+			}
+			break;
 
+		case 'volume':
+			// massa(g), molariteit(mol/L), formulemolmassa
+			// commandArgs[0], commandArgs[1], mol
+			try {
+				const regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+				const mol = (commandArgs[2].match(regex) || []).join(' ');
+				const molmassa = util.atomicMass(mol);
+				const moles = commandArgs[0] / molmassa;
+				const volume = moles / commandArgs[1];
+				msg.answer(volume + ' liter per ' + commandArgs[0] +
+					' grams needed for a ' + commandArgs[1] + 'M ' +
+					commandArgs[2] + ' solution ');
+			} catch (e) {
+				if (e instanceof TypeError)
+					msg.answer('improper formatting');
+				else
+					throw e;
+			}
+			break;
 
-            case 'medchem':
-                pubchem
-                    .setName(commandText)
-                    .getProperties(["IUPACName", "XLogP", "Complexity", "HBondDonorCount", "HBondAcceptorCount",
-                        "RotatableBondCount", "TPSA"
-                    ])
-                    .execute(function(data) {
-                        msg.answer(
-                            "IUPAC name: " + data.IUPACName +
-                            ",\nXLogP: " + data.XLogP + ",\nComplexity: " + data.Complexity + ", \nH-bond donors: " + data.HBondDonorCount +
-                            ", \nH-bond acceptors: " + data.HBondAcceptorCount + ", \nRotatable bonds: " + data.RotatableBondCount +
-                            ", \nTopological polar surface area: " + data.TPSA);
-                    });
-                break;
-
-
-            case 'sym':
-                commandText = capitalizeFirstLetter(commandText);
-                if (pt.symbols[commandText] != undefined) {
-                    msg.answer(pt.symbols[commandText].name + "")
-                } else if (pt.elements[commandText] != undefined) {
-                    msg.answer(pt.elements[commandText].symbol + "")
-                } else {
-                    msg.answer("Not found!")
-                }
-                break;
-
-   
-            case 'mw':
-                let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                let mol = (commandText.match(regex) || []).join(' ');
-                try {
-                    msg.answer("The molar mass of " + commandText + " is: " + util.atomicMass(mol) + "g/mol");
-                } catch (e) {
-                    if (e instanceof TypeError) {
-                        msg.answer("Error, improper formatting, kek");
-                    } else {
-                        throw e;
-                    }
-                }
-                break;
-
-
-            case 'mass':
-                // volume(L), molariteit(mol/L), formulemolmassa
-                // commandArgs[0], commandArgs[1], mol
-                try {
-                    let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                    let mol = (commandArgs[2].match(regex) || []).join(' ');
-                    let molmassa = util.atomicMass(mol)
-                    let moles = commandArgs[0] * commandArgs[1];
-                    let gram = moles * molmassa;
-                    msg.answer(gram + " grams of " + commandArgs[2] + " needed for " + commandArgs[0] + "L " + commandArgs[
-                        1] + "M solution.")
-                } catch (e) {
-                    if (e instanceof TypeError) {
-                        msg.answer("improper formatting")
-                    } else {
-                        throw e;
-                    }
-                }
-                break;
-
-                
-            case 'volume':
-                // massa(g), molariteit(mol/L), formulemolmassa
-                // commandArgs[0], commandArgs[1], mol
-                try {
-                    let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                    let mol = (commandArgs[2].match(regex) || []).join(' ');
-                    let molmassa = util.atomicMass(mol)
-                    let moles = commandArgs[0] / molmassa;
-                    let volume = moles / commandArgs[1];
-                    msg.answer(volume + " liter per " + commandArgs[0] + " grams needed for a " + commandArgs[1] + "M " +
-                        commandArgs[2] + " solution ")
-                } catch (e) {
-                    if (e instanceof TypeError) {
-                        msg.answer("improper formatting")
-                    } else {
-                        throw e;
-                    }
-                }
-                break;
-
+		/*
+			Stopped correcting for today here.
+			- TRGWII
+		*/
 
             case 'molar':
                 // massa(g), volume(L), formulemolmassa
@@ -705,7 +703,8 @@ bot.on('text', msg => {
                     msg.answer(equation + '\n' + reaction);
                 });
                 break;
-
+			default:
+				break;
         }
     }
 });
