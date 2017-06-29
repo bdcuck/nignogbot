@@ -581,106 +581,107 @@ bot.on('text', msg => {
 			}
 			break;
 
-		/*
-			Stopped correcting for today here.
-			- TRGWII
-		*/
+		case 'molar':
+			// massa(g), volume(L), formulemolmassa
+			// commandArgs[0], commandArgs[1], mol
+			try {
+				const regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
+				const mol = (commandArgs[2].match(regex) || []).join(' ');
+				const molmassa = util.atomicMass(mol);
+				const moles = commandArgs[0] / molmassa;
+				const molair = moles / commandArgs[1];
+				msg.answer(commandArgs[0] + ' grams of ' +
+					commandArgs[2] + ' per ' +
+					commandArgs[1] + ' liter is ' +
+					molair + ' molar');
+			} catch (e) {
+				if (e instanceof TypeError)
+					msg.answer('improper formatting');
+				else
+					throw e;
+			}
+			break;
 
-            case 'molar':
-                // massa(g), volume(L), formulemolmassa
-                // commandArgs[0], commandArgs[1], mol
-                try {
-                    let regex = /((Uu[a-z]|[A-Z][a-z]?)\d*)/g;
-                    let mol = (commandArgs[2].match(regex) || []).join(' ');
-                    let molmassa = util.atomicMass(mol)
-                    let moles = commandArgs[0] / molmassa;
-                    let molair = moles / commandArgs[1];
-                    msg.answer(commandArgs[0] + " grams of " + commandArgs[2] + " per " + commandArgs[1] + " liter is " +
-                        molair + " molar")
-                } catch (e) {
-                    if (e instanceof TypeError) {
-                        msg.answer("improper formatting")
-                    } else {
-                        throw e;
-                    }
-                }
-                break;
+		case 'bp':
+			commandText = capitalizeFirstLetter(commandText);
+			if (pt.symbols[commandText]) {
+				const celsius =
+					Number(pt.symbols[commandText].boilingPoint) - 273;
+				msg.answer('The boiling point of ' + commandText + ' is ' +
+					pt.symbols[commandText].boilingPoint + ' K or ' +
+					celsius + 'ºC');
+			} else if (pt.elements[commandText]) {
+				const celsius =
+					Number(pt.elements[commandText].boilingPoint) - 273;
+				msg.answer('The boiling point of ' + commandText + ' is ' +
+					pt.elements[commandText].boilingPoint + ' K or ' +
+					celsius + 'ºC');
+			} else {
+				msg.answer('Not found!');
+			}
+			break;
+
+		case 'mp':
+			commandText = capitalizeFirstLetter(commandText);
+			if (pt.symbols[commandText]) {
+				const celsius =
+					Number(pt.symbols[commandText].meltingPoint) - 273;
+				msg.answer('The melting point of ' + commandText + ' is ' +
+					pt.symbols[commandText].meltingPoint +
+					' K or ' + celsius + 'ºC');
+			} else if (pt.elements[commandText]) {
+				const celsius =
+					Number(pt.elements[commandText].meltingPoint) - 273;
+				msg.answer('The melting point of ' + commandText + ' is ' +
+					pt.elements[commandText].meltingPoint + ' K or ' +
+					celsius + 'ºC');
+			} else {
+				msg.answer('Not found!');
+			}
+			break;
+
+		case 'density':
+			commandText = capitalizeFirstLetter(commandText);
+			if (pt.symbols[commandText])
+				msg.answer('The density of ' + commandText + ' is ' +
+					pt.symbols[commandText].density + ' g/cm^3');
+			else if (pt.elements[commandText])
+				msg.answer('The density of ' + commandText + ' is ' +
+					pt.elements[commandText].density + ' g/cm^3');
+			else
+				msg.answer('Not found!');
+			break;
+
+		case 'config':
+			commandText = capitalizeFirstLetter(commandText);
+			if (pt.symbols[commandText])
+				msg.answer('The electronic configuration ' + commandText +
+					' is ' + pt.symbols[commandText].electronicConfiguration);
+			else if (pt.elements[commandText])
+				msg.answer('The electronic configuration ' + commandText +
+					' is ' + pt.elements[commandText].electronicConfiguration);
+			else
+				msg.answer('Not found!');
+			break;
 
 
-            case 'bp':
-                commandText = capitalizeFirstLetter(commandText);
-                if (pt.symbols[commandText] != undefined) {
-                    let celsius = Number(pt.symbols[commandText].boilingPoint) - 273;
-                    msg.answer("The boiling point of " + commandText + " is " + pt.symbols[commandText].boilingPoint +
-                        " K or " + celsius + "ºC")
-                } else if (pt.elements[commandText] != undefined) {
-                    let celsius = Number(pt.elements[commandText].boilingPoint) - 273;
-                    msg.answer("The boiling point of " + commandText + " is " + pt.elements[commandText].boilingPoint +
-                        " K or " + celsius + "ºC")
-                } else {
-                    msg.answer("Not found!")
-                }
-                break;
-
-
-            case 'mp':
-                commandText = capitalizeFirstLetter(commandText);
-                if (pt.symbols[commandText] != undefined) {
-                    let celsius = Number(pt.symbols[commandText].meltingPoint) - 273;
-                    msg.answer("The melting point of " + commandText + " is " + pt.symbols[commandText].meltingPoint +
-                        " K or " + celsius + "ºC")
-                } else if (pt.elements[commandText] != undefined) {
-                    let celsius = Number(pt.elements[commandText].meltingPoint) - 273;
-                    msg.answer("The melting point of " + commandText + " is " + pt.elements[commandText].meltingPoint +
-                        " K or " + celsius + "ºC")
-                } else {
-                    msg.answer("Not found!")
-                }
-                break;
-
-                
-            case 'density':
-                commandText = capitalizeFirstLetter(commandText);
-                if (pt.symbols[commandText] != undefined) {
-                    msg.answer("The density of " + commandText + " is " + pt.symbols[commandText].density + " g/cm^3")
-                } else if (pt.elements[commandText] != undefined) {
-                    msg.answer("The density of " + commandText + " is " + pt.elements[commandText].density + " g/cm^3")
-                } else {
-                    msg.answer("Not found!")
-                }
-                break;
-
-
-            case 'config':
-                commandText = capitalizeFirstLetter(commandText);
-                if (pt.symbols[commandText] != undefined) {
-                    msg.answer("The electronic configuration " + commandText + " is " + pt.symbols[commandText].electronicConfiguration)
-                } else if (pt.elements[commandText] != undefined) {
-                    msg.answer("The electronic configuration " + commandText + " is " + pt.elements[commandText].electronicConfiguration)
-                } else {
-                    msg.answer("Not found!")
-                }
-                break;
-
-
-            case 'year':
-                commandText = capitalizeFirstLetter(commandText);
-                if (typeof pt.symbols[commandText] == "object") {
-                    if (pt.symbols[commandText].yearDiscovered == "Ancient") {
-                        msg.answer(commandText + " is known since ancient times")
-                    } else {
-                        msg.answer(commandText + " was discovered in " + pt.symbols[commandText].yearDiscovered)
-                    }
-                } else if (typeof pt.elements[commandText] == "object") {
-                    if (pt.elements[commandText].yearDiscovered == "Ancient") {
-                        msg.answer(commandText + " is known since ancient times")
-                    } else {
-                        msg.answer(commandText + " was discovered in " + pt.elements[commandText].yearDiscovered)
-                    }
-                } else {
-                    msg.answer("Not found!")
-                }
-                break;
+		case 'year':
+			commandText = capitalizeFirstLetter(commandText);
+			if ('object' === typeof pt.symbols[commandText])
+				if ('Ancient' === pt.symbols[commandText].yearDiscovered)
+					msg.answer(commandText + ' is known since ancient times');
+				else
+					msg.answer(commandText + ' was discovered in ' +
+						pt.symbols[commandText].yearDiscovered);
+			else if ('object' === typeof pt.elements[commandText])
+				if ('Ancient' === pt.elements[commandText].yearDiscovered)
+					msg.answer(commandText + ' is known since ancient times');
+				else
+					msg.answer(commandText + ' was discovered in ' +
+						pt.elements[commandText].yearDiscovered);
+			else
+				msg.answer('Not found!');
+			break;
 
 
             case 'os':
