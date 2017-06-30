@@ -43,7 +43,7 @@
         "no-iterator": "error",
         "no-lone-blocks": "error",
         "no-loop-func": "error",
-        "no-magic-numbers": [ "warn", {
+        "no-magic-numbers": [ "off", {
             "ignoreArrayIndexes": true
         } ],
         "no-multi-spaces": "error",
