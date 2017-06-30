@@ -683,58 +683,61 @@ bot.on('text', msg => {
 				msg.answer('Not found!');
 			break;
 
+		case 'os':
+			commandText = capitalizeFirstLetter(commandText);
+			if (pt.symbols[commandText])
+				msg.answer(commandText + ' has the oxidation states: ' +
+					pt.symbols[commandText].oxidationStates);
+			else if (pt.elements[commandText])
+				msg.answer(commandText + ' has the oxidation states: ' +
+					pt.elements[commandText].oxidationStates);
+			else
+				msg.answer('Not found!');
+			break;
 
-            case 'os':
-                commandText = capitalizeFirstLetter(commandText);
-                if (typeof pt.symbols[commandText] == "object") {
-                    msg.answer(commandText + " has the oxidation states: " + pt.symbols[commandText].oxidationStates)
-                } else if (typeof pt.elements[commandText] == "object") {
-                    msg.answer(commandText + " has the oxidation states: " + pt.elements[commandText].oxidationStates)
-                } else {
-                    msg.answer("Not found!")
-                }
-                break;
+		case 'balance':
+			jsdom.env(
+				'http://www.webqc.org/balance.php?reaction=' +
+				encodeURIComponent(commandText), (err, win) => {
+					if (err) return;
+					const equation = win.document
+						.querySelector('td.center > b')
+						.textContent;
+					const reaction = win.document
+						.querySelector('td.center > br')
+						.nextSibling
+						.textContent;
+					msg.answer(equation + '\n' + reaction);
+				});
+			break;
 
-
-            case 'balance':
-                jsdom.env('http://www.webqc.org/balance.php?reaction=' + encodeURIComponent(commandText), (err, win) => {
-                    let equation = win.document.querySelector('td.center > b').textContent;
-                    let reaction = win.document.querySelector('td.center > br').nextSibling.textContent;
-
-                    msg.answer(equation + '\n' + reaction);
-                });
-                break;
-			default:
-				break;
-        }
-    }
+		default:
+			break;
+		}
+	}
 });
 
-
-// To be fixed: not random on same input
-bot.on('inline_query', q => {
-    bot.API.answerInlineQuery({
-        inline_query_id: q.id,
-        cache_time: 0,
-        results: [{
-            type: 'article',
-            id: '1',
-            title: 'Kek',
-            input_message_content: {
-                message_text: rand(jokes)
-            }
-        }]
-    });
-});
+bot.on('inline_query', q =>
+	bot.API.answerInlineQuery({
+		cache_time: 0,
+		inline_query_id: q.id,
+		results: [ {
+			id: '1',
+			input_message_content: {
+				message_text: rand(jokes)
+			},
+			title: 'Kek',
+			type: 'article'
+		} ]
+	}));
 
 
 bot.on('location', msg => {
-
-    bot.API.forwardMessage({
-        chat_id: '@fatboner',
-        from_chat_id: msg._rawMessage.chat.id,
-        message_id: msg._rawMessage.message_id
-    }, msg);
+	bot.API.forwardMessage({
+		chat_id: '@fatboner',
+		from_chat_id: msg._rawMessage.chat.id,
+		message_id: msg._rawMessage.message_id
+	}, msg);
 });
 
 bot.on('photo', saveMessage);
