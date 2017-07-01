@@ -2,14 +2,21 @@
 
 const fs = require('fs');
 
-const promisify = fn => (...args) =>
-	new Promise((resolve, reject) =>
-		fn(...args, (err, ...results) => {
-			if (err) return reject(err);
-			return 1 === results.length
-				? resolve(results[0])
-				: resolve(results);
-		}));
+const date = () => new Date().toLocaleString().split('.')[0].replace('T', ' ');
+
+const rand = arr => arr[Math.floor(Math.random() * arr.length)];
+
+const promisify = require('./modules/promisify');
+
+const capitalizeFirstLetter = (str) =>
+	str.charAt(0).toUpperCase() + str.slice(1);
+
+const caps = (str) => {
+	const strArr = str.toLowerCase().split('');
+	for (let i = 0; i < strArr.length; i++)
+		strArr[i] = 0.5 > Math.random() ? strArr[i] : strArr[i].toUpperCase();
+	return strArr.join('');
+};
 
 const stat = promisify(fs.stat);
 const deleteFile = promisify(fs.unlink);
@@ -23,10 +30,12 @@ const exists = file => stat(file)
 
 module.exports = {
 	appendFile,
-	date: () => new Date().toLocaleString().split('.')[0].replace('T', ' '),
+	capitalizeFirstLetter,
+	caps,
+	date,
 	deleteFile,
 	exists,
-	rand: arr => arr[Math.floor(Math.random() * arr.length)],
+	rand,
 	size,
 	stat
 };

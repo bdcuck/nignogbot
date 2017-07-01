@@ -44,17 +44,9 @@ let day = 0;
 const runningGames = {};
 
 // Global functions and shit
-const { date, rand } = require('./utils');
+const { date, rand, capitalizeFirstLetter, caps } = require('./utils');
 
-const capitalizeFirstLetter = (str) =>
-	str.charAt(0).toUpperCase() + str.slice(1);
 const getRandomName = () => rand(nameFirst) + ' ' + rand(nameLast);
-const caps = (str) => {
-	const strArr = str.toLowerCase().split('');
-	for (let i = 0; i < strArr.length; i++)
-		strArr[i] = 0.5 > Math.random() ? strArr[i] : strArr[i].toUpperCase();
-	return strArr.join('');
-};
 
 // Logging lmao
 const saveMessage = require('./modules/logger')(bot);
