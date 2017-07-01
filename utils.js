@@ -12,11 +12,12 @@ const capitalizeFirstLetter = str =>
 	str[0].toUpperCase() + str.slice(1);
 
 const caps = str => {
+	str = str.split('');
 	for (let i = 0; i < str.length; i++)
 		str[i] = Math.random() < 0.5
 			? str[i].toLowerCase()
 			: str[i].toUpperCase();
-	return str;
+	return str.join('');
 };
 
 const stat = promisify(fs.stat);
