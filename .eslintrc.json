@@ -74,7 +74,7 @@
         ],
         "require-await": "error",
         "vars-on-top": "error",
-        "yoda": [ "error", "always" ],
+
         "strict": [ "error", "global" ],
         "no-catch-shadow": "error",
         "no-label-var": "error",
@@ -143,7 +143,6 @@
             "MethodDefinition": true,
             "ClassDeclaration": true
         } } ],
-        "semi": "error",
         "semi-spacing": "error",
         "semi-style": "error",
         "sort-keys": [ "error", "asc", {

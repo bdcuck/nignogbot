@@ -2,19 +2,23 @@
 
 const debug = false;
 
-// API shit
-const secret = require('./secret.json');
-const { TelegramBot } = require('telebotframework');
-const { InputFile } = require('teleapiwrapper').DataTypes;
-const TwitterPackage = require('twitter');
-const bot = new TelegramBot(process.env.TOKEN || secret.bottoken);
-const Twitter = new TwitterPackage(secret.twitter);
-
 // Native dependencies
 const https = require('https');
 const dns = require('dns');
 const fs = require('fs');
 const { sep } = require('path');
+
+// config.json creation wizard
+require('child_process')
+	.spawnSync('node', [ 'initialsetup.js' ], { stdio: 'inherit' });
+
+// API shit
+const config = require('./config.json');
+const { TelegramBot } = require('telebotframework');
+const { InputFile } = require('teleapiwrapper');
+const TwitterPackage = require('twitter');
+const bot = new TelegramBot(process.env.TOKEN || config.telegram.token);
+const Twitter = new TwitterPackage(config.twitter.secret);
 
 // NPM dependencies
 const geoip = require('geoip-lite');
@@ -37,7 +41,7 @@ const getPubchemImage = require('./modules/pubchemimage.js');
 
 // Global vars and shit
 const messageFolder = 'chatlogs';
-const adminID = [ 126131628 ];
+const adminID = [ config.telegram.creator ];
 const rpg = new DrugRPG();
 const vm = new VM();
 let day = 0;
@@ -112,17 +116,18 @@ const saveMessage = msg => {
 
 // getMe
 bot.username = 'bot';
-https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
-	let data = '';
-	res.on('data', d => data += d);
-	res.on('end', () => {
-		data = JSON.parse(data).result;
-		if (debug) console.log('/getMe: ', data);
-		bot.id = data.id;
-		bot.first_name = data.first_name;
-		bot.username = data.username;
+https.get('https://api.telegram.org/bot' + config.telegram.token + '/getMe',
+	res => {
+		let data = '';
+		res.on('data', d => data += d);
+		res.on('end', () => {
+			data = JSON.parse(data).result;
+			if (debug) console.log('/getMe: ', data);
+			bot.id = data.id;
+			bot.first_name = data.first_name;
+			bot.username = data.username;
+		});
 	});
-});
 
 // Botmagic happens here lmao
 bot.startLongpolling();

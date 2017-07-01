@@ -1,0 +1,9 @@
+{
+	"telegram": {
+		"token": "<BOT TOKEN>",
+		"creator": 0
+	},
+	"twitter": {
+		"secret": "<TWITTER SECRET>"
+	}
+}
