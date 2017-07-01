@@ -9,20 +9,20 @@ const saveJSON = (path, json) =>
 	fs.writeFileSync(path, JSON.stringify(json, null, '\t'));
 const line = () => new Promise(resolve => rl.once('line', resolve));
 
-(async () => {
+let config;
 
-	let config;
+try {
+	config = loadJSON('config.json');
+} catch (err) {
+	if (err.code !== 'ENOENT')
+		throw err;
+	config = loadJSON('example.config.json');
+}
 
-	if (!fs.existsSync('chatlogs'))
-		fs.mkdirSync('chatlogs');
+(async (config) => {
 
-	try {
-		config = loadJSON('config.json');
-	} catch (err) {
-		if (err.code !== 'ENOENT')
-			throw err;
-		config = loadJSON('example.config.json');
-	}
+	if (!fs.existsSync(config.logger.folder))
+		fs.mkdirSync(config.logger.folder);
 
 	while (config.telegram.token === '<BOT TOKEN>') {
 		console.log('Please paste your bot token:');
@@ -56,4 +56,4 @@ const line = () => new Promise(resolve => rl.once('line', resolve));
 
 	saveJSON('config.json', config);
 	rl.close();
-})();
+})(config);

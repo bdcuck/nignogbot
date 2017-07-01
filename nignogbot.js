@@ -5,8 +5,6 @@ const debug = false;
 // Native dependencies
 const https = require('https');
 const dns = require('dns');
-const fs = require('fs');
-const { sep } = require('path');
 
 // config.json creation wizard
 require('child_process')
@@ -15,7 +13,6 @@ require('child_process')
 // API shit
 const config = require('./config.json');
 const { TelegramBot } = require('telebotframework');
-const { InputFile } = require('teleapiwrapper');
 const TwitterPackage = require('twitter');
 const bot = new TelegramBot(process.env.TOKEN || config.telegram.token);
 const Twitter = new TwitterPackage(config.twitter.secret);
@@ -40,7 +37,6 @@ const DrugRPG = require('./modules/drugrpg.js');
 const getPubchemImage = require('./modules/pubchemimage.js');
 
 // Global vars and shit
-const messageFolder = 'chatlogs';
 const adminID = [ config.telegram.creator ];
 const rpg = new DrugRPG();
 const vm = new VM();
@@ -48,8 +44,8 @@ let day = 0;
 const runningGames = {};
 
 // Global functions and shit
-const date = () => new Date().toLocaleString().split('.')[0].replace('T', ' ');
-const rand = arr => arr[Math.floor(Math.random() * nigger.length)];
+const { date, rand } = require('./utils');
+
 const capitalizeFirstLetter = (str) =>
 	str.charAt(0).toUpperCase() + str.slice(1);
 const getRandomName = () => rand(nameFirst) + ' ' + rand(nameLast);
@@ -60,59 +56,8 @@ const caps = (str) => {
 	return strArr.join('');
 };
 
-const promisify = fn => (...args) =>
-	new Promise((resolve, reject) =>
-		fn(...args, (err, ...results) => {
-			if (err) return reject(err);
-			return 1 === results.length
-				? resolve(results[0])
-				: resolve(results);
-		}));
-
-const stat = promisify(fs.stat);
-const deleteFile = promisify(fs.unlink);
-const appendFile = promisify(fs.appendFile);
-const size = file =>
-	stat(file).then(stats => stats.size / 1024).catch(() => 0);
-
-const exists = file => stat(file)
-	.then(() => true)
-	.catch(() => false);
-
 // Logging lmao
-const saveMessage = msg => {
-	const { id } = msg.chat;
-	const file = messageFolder + sep + id + '.html';
-	const message =
-		'<h3>From: ' + (msg.from.username
-			? msg.from.first_name + ' - @' + msg.from.username
-			: msg.from.first_name) +
-		' [' + date() + ']:</h3>' + (msg.text
-			? '<p>' + msg.text + '</p>'
-			: '<p>[Picture] ID= ' + msg._fileId + '</p>');
-	const header = '<h1>***\nChat: ' + (msg.chat.title
-		? msg.chat.title + '( id: ' + msg.chat.id + ') '
-		: 'Private chat ') + '\n***\n</h1>';
-	return exists(file).then(ex => {
-		if (!ex)
-			appendFile(file, header);
-		appendFile(file, message);
-		return file;
-	})
-		.then(size)
-		.then(fileSize => {
-			if (15 < fileSize) {
-				const sendfile = new InputFile(
-					fs.createReadStream(file),
-					'Chat' + id + '(' + date() + ').html');
-				bot.API.sendDocument({
-					chat_id: '@fatboner',
-					document: sendfile
-				}).then(() => deleteFile(file))
-					.catch(() => console.log('Fucking unlink fail'));
-			}
-		});
-};
+const saveMessage = require('./modules/logger')(bot);
 
 // getMe
 bot.username = 'bot';

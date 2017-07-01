@@ -5,5 +5,9 @@
 	},
 	"twitter": {
 		"secret": "<TWITTER SECRET>"
+	},
+	"logger": {
+		"folder": "chatlogs",
+		"chat": "@fatboner"
 	}
 }
