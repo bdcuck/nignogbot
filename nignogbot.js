@@ -317,7 +317,7 @@ bot.on('text', msg => {
 			bot.API.sendPhoto({
 				caption: spongemock,
 				chat_id: msg.chat.id,
-				photo: 'AgADBAADWqkxGy52sFFQWcLe-rjPEtHNZBkABOqgTuPPQ8Bgxl4AAgI'
+				photo: 'http://i1.kym-cdn.com/entries/icons/original/000/022/940/spongebobicon.jpg'
 
 			});
 			break;

@@ -59,4 +59,6 @@ const validate = async (object, name, def,
 
 	saveJSON('config.json', config);
 	rl.close();
+
+	console.log('config.json OK');
 })(config);
