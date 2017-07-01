@@ -342,18 +342,15 @@ bot.on('text', msg => {
 
 		// Gay games
 		case 'rpg':
-			if ('function' === typeof rpg[commandArgs[0]])
-				if (runningGames[msg.from.id]) {
-					msg.answer(runningGames[msg.from.id][commandArgs[0]](
-						commandArgs[1]) + ' ');
-				} else {
-					runningGames[msg.from.id] = new DrugRPG();
-					msg.answer(runningGames[msg.from.id][commandArgs[0]](
-						commandArgs[1]) + ' ');
-				}
-			else
+			if ('function' === typeof rpg[commandArgs[0]]) {
+				const [ action ] = commandArgs;
+				const game = runningGames[msg.from.id] ||
+					(runningGames[msg.from.id] = new DrugRPG());
+				msg.answer(game[action](commandArgs[1]));
+			} else {
 				msg.answer(
 					'Commands are: buy, make, sell, bribe, dealer and stats');
+			}
 			break;
 
 		case 'kekget':
