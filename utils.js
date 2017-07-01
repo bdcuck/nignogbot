@@ -12,10 +12,10 @@ const capitalizeFirstLetter = str =>
 	str[0].toUpperCase() + str.slice(1);
 
 const caps = str => {
-	for (let i = 0; i < strArr.length; i++)
+	for (let i = 0; i < str.length; i++)
 		str[i] = Math.random() < 0.5
-			? strArr[i].toLowerCase()
-			: strArr[i].toUpperCase();
+			? str[i].toLowerCase()
+			: str[i].toUpperCase();
 	return str;
 };
 
