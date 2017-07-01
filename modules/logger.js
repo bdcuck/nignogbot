@@ -6,7 +6,7 @@ const { InputFile } = require('teleapiwrapper');
 const { date, exists, appendFile, size, deleteFile } = require('../utils');
 const config = require('../config.json');
 
-const messageFolder = config.logdir;
+const messageFolder = config.logger.folder;
 
 const saveMessage = bot => msg => {
 	const { id } = msg.chat;
