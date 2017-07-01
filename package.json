@@ -10,13 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "geoip-lite": "^1.1.8",
+    "geoip-lite": "^1.2.1",
     "jsdom": "^11.0.0",
-    "mathjs": "^3.2.1",
-    "periodic-table": "0.0.6",
+    "mathjs": "^3.14.1",
+    "periodic-table": "0.0.8",
     "pubchem-access": "^1.0.1",
-    "request": "^2.72.0",
-    "telebotframework": "^0.11.1",
-    "twitter": "^1.7.0"
+    "request": "^2.81.0",
+    "telebotframework": "^0.11.2",
+    "twitter": "^1.7.1"
   }
 }
