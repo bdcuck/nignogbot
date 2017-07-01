@@ -8,14 +8,15 @@ const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
 const promisify = require('./modules/promisify');
 
-const capitalizeFirstLetter = (str) =>
-	str.charAt(0).toUpperCase() + str.slice(1);
+const capitalizeFirstLetter = str =>
+	str[0].toUpperCase() + str.slice(1);
 
-const caps = (str) => {
-	const strArr = str.toLowerCase().split('');
+const caps = str => {
 	for (let i = 0; i < strArr.length; i++)
-		strArr[i] = 0.5 > Math.random() ? strArr[i] : strArr[i].toUpperCase();
-	return strArr.join('');
+		str[i] = Math.random() < 0.5
+			? strArr[i].toLowerCase()
+			: strArr[i].toUpperCase();
+	return str;
 };
 
 const stat = promisify(fs.stat);
