@@ -19,19 +19,42 @@ try {
 	config = loadJSON('example.config.json');
 }
 
+const stringValidator = async (object, name, def) => {
+	while (object[name] === def) {
+		console.log('Please paste your ' + name + ':');
+		const value = (await line()).trim();
+		if (value !== '')
+			object[name] = value;
+		else
+			console.log('Invalid ' + name + ', try again!');
+	}
+};
+
 (async (config) => {
 
 	if (!fs.existsSync(config.logger.folder))
 		fs.mkdirSync(config.logger.folder);
 
-	while (config.telegram.token === '<BOT TOKEN>') {
-		console.log('Please paste your bot token:');
-		const token = (await line()).trim();
-		if (token !== '')
-			config.telegram.token = token;
-		else
-			console.log('Invalid token, try again!');
-	}
+/*
+consumer_key
+consumer_secret
+access_token_key
+access_token_secret
+*/
+	await stringValidator(config.telegram, 'token',
+		'<BOT TOKEN>');
+
+	await stringValidator(config.twitter, 'consumer_key',
+		'<TWITTER CONSUMER KEY>');
+
+	await stringValidator(config.twitter, 'consumer_secret',
+		'<TWITTER CONSUMER SECRET>');
+
+	await stringValidator(config.twitter, 'access_token_key',
+		'<TWITTER ACCESS TOKEN KEY>');
+
+	await stringValidator(config.twitter, 'access_token_secret',
+		'<TWITTER ACCESS TOKEN SECRET>');
 
 	while (config.telegram.creator === 0) {
 		console.log('Please pase your admin ID  (usually yourself):');
@@ -43,15 +66,6 @@ try {
 			config.telegram.creator = creator;
 		else
 			console.log('Invalid admin ID, try again!');
-	}
-
-	while (config.twitter.secret === '<TWITTER SECRET>') {
-		console.log('Please paste your twitter API secret:');
-		const secret = (await line()).trim();
-		if (secret !== '')
-			config.twitter.secret = secret;
-		else
-			console.log('Invalid secret, try again!');
 	}
 
 	saveJSON('config.json', config);

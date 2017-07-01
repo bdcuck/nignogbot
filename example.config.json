@@ -4,7 +4,10 @@
 		"creator": 0
 	},
 	"twitter": {
-		"secret": "<TWITTER SECRET>"
+		"consumer_key": "<TWITTER CONSUMER KEY>",
+		"consumer_secret": "<TWITTER CONSUMER SECRET>",
+		"access_token_key": "<TWITTER ACCESS TOKEN KEY>",
+		"access_token_secret": "<TWITTER ACCESS TOKEN SECRET>"
 	},
 	"logger": {
 		"folder": "chatlogs",
