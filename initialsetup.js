@@ -19,15 +19,18 @@ try {
 	config = loadJSON('example.config.json');
 }
 
-const stringValidator = async (object, name, def) => {
+const validate = async (object, name, def,
+	preprocessor = x => x,
+	validator = val => val !== ''
+) => {
 	while (object[name] === def) {
 		console.log('Please paste your ' + name + ':');
-		const value = (await line()).trim();
-		if (value !== '')
+		const value = preprocessor((await line()).trim());
+		if (validator(value))
 			object[name] = value;
-		else
+		else	
 			console.log('Invalid ' + name + ', try again!');
-	}
+	}	
 };
 
 (async (config) => {
@@ -35,38 +38,24 @@ const stringValidator = async (object, name, def) => {
 	if (!fs.existsSync(config.logger.folder))
 		fs.mkdirSync(config.logger.folder);
 
-/*
-consumer_key
-consumer_secret
-access_token_key
-access_token_secret
-*/
-	await stringValidator(config.telegram, 'token',
+	await validate(config.telegram, 'token',
 		'<BOT TOKEN>');
 
-	await stringValidator(config.twitter, 'consumer_key',
+	await validate(config.telegram, 'creator', 0,
+		x => Number(x),
+		x => !Number.isNaN(x) && x < Number.MAX_SAFE_INTEGER && x > 0);
+
+	await validate(config.twitter, 'consumer_key',
 		'<TWITTER CONSUMER KEY>');
 
-	await stringValidator(config.twitter, 'consumer_secret',
+	await validate(config.twitter, 'consumer_secret',
 		'<TWITTER CONSUMER SECRET>');
 
-	await stringValidator(config.twitter, 'access_token_key',
+	await validate(config.twitter, 'access_token_key',
 		'<TWITTER ACCESS TOKEN KEY>');
 
-	await stringValidator(config.twitter, 'access_token_secret',
+	await validate(config.twitter, 'access_token_secret',
 		'<TWITTER ACCESS TOKEN SECRET>');
-
-	while (config.telegram.creator === 0) {
-		console.log('Please pase your admin ID  (usually yourself):');
-		const creator = Number((await line()).trim());
-		if (
-			!Number.isNaN(creator) &&
-			creator < Number.MAX_SAFE_INTEGER &&
-			creator > 0)
-			config.telegram.creator = creator;
-		else
-			console.log('Invalid admin ID, try again!');
-	}
 
 	saveJSON('config.json', config);
 	rl.close();
