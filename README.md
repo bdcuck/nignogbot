@@ -18,3 +18,5 @@ Crappy nignogbot.js code to be cleaned up, then merge with logger.js
 
 [ ] TypeErrors happen (probably on sending audio, not sure)
 -    `nignogbot-0 (err): TypeError: Cannot read property 'file_id' of undefined`
+
+[ ] Logger stopped working kek

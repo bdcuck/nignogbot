@@ -10,7 +10,7 @@ const messageFolder = config.logger.folder;
 
 const saveMessage = bot => msg => {
 	const { id } = msg.chat;
-	const file = messageFolder + sep + id + '.html';
+	const file = '../' + messageFolder + sep + id + '.html';
 	const message =
 		'<h3>From: ' + (msg.from.username
 			? msg.from.first_name + ' - @' + msg.from.username

@@ -1,0 +1,72 @@
+// API shit
+// Native dependencies
+// NPM dependencies
+// Includes
+// Global vars and shit
+// Global functions and shit
+// Logging lmao
+// getMe
+https.get('https://api.telegram.org/bot' + secret.bottoken + '/getMe', res => {
+// Botmagic happens here lmao
+// Standard bot commands         
+            case 'start':
+            case 'help':
+            case 'debug':
+// Eval JS
+            case 'eval':
+            case 'killeval':
+            case 'killallevals':
+// General non-trolling
+            case 'geoip':
+            case 'math':
+ // General trolling
+            case 'twat':
+                            msg.answer("Messaged tweeted https://twitter.com/rambodildo");
+            case 'gayname':
+            case 'monopoly':
+            case 'fortune':
+            case 'lenny':
+            case 'poopoo':
+            case 'apple':
+            case 'nigger':
+            case 'jew':
+            case 'sim':
+            case 'shout':
+            case 'n':
+            case 'kek':
+            case 'nignog':
+            case 'sponge':
+// Admin only trolling           
+            case 'heilhitler':
+            case 'terribleweebcancer':
+// Gay games
+            case 'rpg':
+            case 'kekget':
+            case 'bjstart':
+            // Placeholder for an actual BJ game
+ // Chemistry                    
+            case 'cas':
+            case 'mol':
+            case 'synonym':
+            case 'prop':
+            case 'medchem':
+            case 'sym':
+            case 'mw':
+            case 'mass':
+                // volume(L), molariteit(mol/L), formulemolmassa
+                // commandArgs[0], commandArgs[1], mol
+            case 'volume':
+                // massa(g), molariteit(mol/L), formulemolmassa
+                // commandArgs[0], commandArgs[1], mol
+            case 'molar':
+                // massa(g), volume(L), formulemolmassa
+                // commandArgs[0], commandArgs[1], mol
+            case 'bp':
+            case 'mp':
+            case 'density':
+            case 'config':
+            case 'year':
+            case 'os':
+            case 'balance':
+                jsdom.env('http://www.webqc.org/balance.php?reaction=' + encodeURIComponent(commandText), (err, win) => {
+// To be fixed: not random on same input

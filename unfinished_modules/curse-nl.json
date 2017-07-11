@@ -1,0 +1,74 @@
+
+var bijv_nw = {
+    counter : null,
+    name: "bijv_nw",
+    data: ["achterlijke", "ontzettende", "enorme", "vieze", "voezelige", "kontvingerende", "kontneukende", "sproeipoepende",
+        "slingerschijtende", "vunzige", "vuile", "laffe", "afvallige", "klontkakkende", "spuitende", "schele",
+        "domme", "irritante", "anaalgeboren", "uitgekakte", "door de stront getrokken", "zwakzinnige", "vertyfde",
+        "doodgeboren", "bevlekte", "onbespoten", "puisterige", "homofiele", "pedofiele", "leugenachtige", "vieze vuile",
+        "homopatische", "idiote", "van achteren genomen", "in de reet geneukte", "in het ootje genomen", "fantastische",
+        "zwetende", "schilferige", "stiekeme", "rondruisende", "enorme", "vuistneukende", "verlichte", "blaffende", "huigruikende",
+        "boliviaanse", "gare", "maffe", "malle", "vooruitgestoken", "gekrompen", "gesmolten", "minimale", "sleufvrezende",
+        "daadkrachtige", "onnozele", "nozele", "zwartgeblakerde", "groengele", "slobberende", "uitgewoonde", "opgebruikte",
+        "niet te versmaden", "natte", "bevallige", "takke", "snuivende", "glijdende", "ingedaalde", "omhooggevallen",
+        "afgetobde", "onvervalste", "droogneukende", "krentkijkende", "huigstotende", "liplikkende", "voorhuidknabbelende",
+        "huichelachtige", "kontstarende", "uit de naad ruikende"]
+};
+
+var bijv_nw_2 = {
+    counter : null,
+    name: "bijv_nw_2",
+    data: [ "aars", "anus", "tering", "stront", "tyfus", "graf", "pik", "kut", "bef", "billen", "blubber", "bluf", "rug",
+        "pokke", "darm", "drollen", "geiten", "gier", "smegma", "zaad", "ruk", "huig", "stink", "riool", "fluit",
+        "spuit", "tering", "endeldarm", "genots", "hasj", "staaf", "kluif", "tokus", "kloot", "hitler", "braak", "kots",
+        "pseudo"]
+};
+
+var object = {
+    counter : null,
+    name: "object",
+    data: [ "hond", "aap", "piemel", "snol", "slet", "eikel", "pannekoek", "hoer", "nicht", "toerist",
+        "ridder", "baviaan", "haas", "banaan", "tekkel", "gladiool", "freak", "lul", "scheet", "dwaas", "baard",
+        "pukkel", "geit", "knobbel", "puist", "muppet", "vlek", "mongool", "zak", "laaf", "trechter", "mof",
+        "bewoner", "uitbater", "figuur", "swaffelaar", "minion", "debiel", "piemel", "pik", "trechter", "vergiet",
+        "gleuf", "flamoes", "rosbief", "penis", "scrotum", "balzak", "toompje", "wijf", "batser", "snor"]
+};
+//, "pikhoofd" "knikkerhoofd", "kotshoofd", "kloothoofd",
+
+var bestaand = {
+    counter : null,
+    name: "bestaand",
+    data: [ "aarsgarnaal", "aasgier", "anaalgeneraal", "anaalridder", "anusacrobaat", "anuspiraat", "anusridder",
+        "augurklul", "baardaap", "bafkoning", "bananenbeffer", "befbanaan", "beschuitlul", "biggebeffer", "billepik", "bilridder",
+        "bilnaad", "bokkenlul", "bosaap", "boerenlul", "boerenkut", "bosmongool", "braakhut", "bruinwerker", "bruinridder", "dakhaas",
+        "darmtoerist", "dildotrekker", "darmknikker", "eikelbijter", "eikelkluiver", "emmerkut", "flapdrol", "geitenbeffer",
+        "gierkut", "gleufdoos", "grafbak", "grafkop", "graftak", "zwijn", "heggeneuker", "hark", "hoer", "hoerenloper", "homofiel",
+        "huppelkut", "kamelenpijper", "kannezeiker", "kebabflap", "klapperkut", "keuteldeuker", "kloothommel", "klootviool",
+        "klootzak", "klotenklapper", "knevelkut", "koekwous", "koeienkut", "kontbonker", "kontenketser",
+        "konthaarkorrel", "kontridder", "kontkruimel", "kopkluiver", "kutfrikandel", "kuttekop", "kuttenlikker", "kutveger", "kutzwabber",
+        "lijkenneuker", "makaak", "malloot", "neukstengel", "okselhaas", "olifantenlul", "neukfout", "paardebeffer", "paardenlul",
+        "pindapijper", "pijpbek", "pijpgeit", "pislul", "pisvinger", "pisvlek", "plofkip", "plofkop", "plofkut",
+        "poepchinees", "rugtuffer", "rugklimmer", "rugkoning", "rioolkop", "schaamluis", "schijndode", "schijtbek", "schapenkut",
+        "schijtzak", "schurftkut", "schimmelteen", "slettebak", "slootkloot", "snotsnuiver", "speknek", "stierenpijper",
+        "strontstamper", "tepeltrut", "takketrol", "trekvlek", "tietenlokker", "varkenskop", "vaselinevriend", "vetvlek",
+        "volkorenkut", "zaadslikker", "zweetreet",  "genotsflikker", "rukhond", "piklikker", "smetvlek", "befman", "pennelikker",
+        "tokuslikker", "gleufgraver", "gleuvenlikker", "zaaddonor", "pikvinger", "plakhond", "ritsruiker", "flamoesfetisjist",
+        "rosbiefnaaier", "rukpik", "hachelknook", "matennnaaier", "spermaspuiter", "reteneuker", "budhond", "vaderneuker", "moederneuker",
+        "moederbatser"]
+};
+
+var handelend = {
+    counter : null,
+    name: "handelend",
+    data: [ "likker", "zuiger", "trekker", "beffer", "baffer", "propper", "slurper", "hufter", "kluiver", "bijter", "wipper",
+        "naaier", "snuiver", "vriend", "collega", "naaier", "huichelaar", "maat", "smachter", "verkrachter", "klopper", "stroper",
+        "lurker", "graver", "veger", "swaffelaar", "droogneuker", "simulator"]
+};
+
+var combinations = [
+    [bijv_nw, bestaand],
+    [bijv_nw, bijv_nw_2, object ],
+    [bijv_nw_2, object],
+    [bijv_nw, bijv_nw_2, handelend],
+    [bestaand]
+];

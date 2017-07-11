@@ -15,7 +15,7 @@ const config = require('./config.json');
 const { TelegramBot } = require('telebotframework');
 const TwitterPackage = require('twitter');
 const bot = new TelegramBot(process.env.TOKEN || config.telegram.token);
-const Twitter = new TwitterPackage(config.twitter.secret);
+const Twitter = new TwitterPackage(config.twitter);
 
 // NPM dependencies
 const geoip = require('geoip-lite');
