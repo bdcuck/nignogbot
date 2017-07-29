@@ -1,6 +1,6 @@
 'use strict';
 
-const debug = false;
+const debug = true;
 
 // Native dependencies
 const https = require('https');
@@ -36,6 +36,10 @@ const VM = require('./modules/vm.js');
 const DrugRPG = require('./modules/drugrpg.js');
 const getPubchemImage = require('./modules/pubchemimage.js');
 
+const {
+	apple
+} = require('./commands/commands.js');
+
 // Global vars and shit
 const adminID = [ config.telegram.creator ];
 const rpg = new DrugRPG();
@@ -49,7 +53,7 @@ const { date, rand, capitalizeFirstLetter, caps } = require('./utils');
 const getRandomName = () => rand(nameFirst) + ' ' + rand(nameLast);
 
 // Logging lmao
-const saveMessage = require('./modules/logger')(bot);
+// const saveMessage = require('./modules/logger')(bot);
 
 // getMe
 bot.username = 'bot';
@@ -69,7 +73,7 @@ https.get('https://api.telegram.org/bot' + config.telegram.token + '/getMe',
 // Botmagic happens here lmao
 bot.startLongpolling();
 
-bot.on('text', saveMessage);
+// bot.on('text', saveMessage);
 
 bot.on('text', msg => {
 
@@ -226,9 +230,7 @@ bot.on('text', msg => {
 			break;
 
 		case 'apple':
-			for (let i = 0; i < Math.floor(Math.random() * 20); i++)
-				text += 0.5 > Math.random() ? '🍎' : '🍏';
-			msg.answer(text);
+			msg.answer(apple());
 			break;
 
 		case 'nigger': {
@@ -670,7 +672,7 @@ bot.on('inline_query', q =>
 		} ]
 	}));
 
-
+/*
 bot.on('location', msg => {
 	bot.API.forwardMessage({
 		chat_id: '@fatboner',
@@ -680,3 +682,4 @@ bot.on('location', msg => {
 });
 
 bot.on('photo', saveMessage);
+*/
