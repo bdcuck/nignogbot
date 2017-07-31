@@ -1,10 +1,9 @@
-'use strict'
+'use strict';
 
-const apple = () => { 
-    let text = '';
-    for (let i = 0; i < Math.floor(Math.random() * 20); i++){
-        text += 0.5 > Math.random() ? '🍎' : '🍏';
-    }
-    return text;
-}
+const apple = () => {
+	let text = '';
+	for (let i = 0; i < Math.floor(Math.random() * 20); i++)
+		text += Math.random() < 0.5 ? '🍎' : '🍏';
+	return text;
+};
 module.exports = apple;
