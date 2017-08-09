@@ -1,7 +1,4 @@
 'use strict';
-
-const n = (commandText) => { return 'feature currently under construction faggot' 
-
-    
-};
-module.exports = ({ reply }) => reply(n());
+const { nigger } = require('../modules/jsons.js');
+const rand = arr => arr[Math.floor(Math.random() * arr.length)];
+module.exports = ({ reply }) => reply(rand(nigger));
