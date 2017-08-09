@@ -1,0 +1,44 @@
+balance - Balance equations (e.g. H2 + O2 = H2O)
+bjstart - Blackjack aka niggerjack
+bp - Boiling point of element
+calc - Calculator
+cas - CAS registry number of compound
+config - Electronic configuration of element
+debug - Messageinfo
+density - Density of element
+evaljs - Evaluate JavaScript
+fortune - Shows your fortune
+gayname - Your gay name
+geoip - Location (e.g. /geoip google.com)
+heilhitler - Admin-only trolling
+help - Shows help message
+jew - Random Swastika
+kek - Nigger jokes
+kekget - Try to get a KEK
+killallevals - Kill all eval processes (Admin only)
+killeval - Kill eval process
+lenny - Le Lenny face LMao
+mass - Grams needed for x Liter of y Molar (L M formula)
+medchem - Lipinsky rule of 5 for compounds
+mol - 2D structure of compounds
+molar - Molarity of solutions (g L formula)
+monopoly - Nigger-style Monopoly
+mp - Melting point of element
+mw - Molar mass based on formula
+n - Nigger synonyms
+nigger - Dumb nigger counter up to 20
+nignog - NigNog version of FizzBuzz
+os - Possible oxidation states of element
+poopoo - Random poopoo
+prop - General properties of compounds
+rpg - DrugRPG (buy x, make x, sell x, bribe, stats)
+shout - Shout like an obnoxious nigger
+sim - Nigger SimCity 3000
+sponge - Spongememe
+start - Shows help message
+sym - Gives symbol for element and vice versa
+synonym - Lists synonyms for compounds
+terribleweebcancer - Admin-only trolling
+twat - Send Twitter message via @rambodildo
+volume - Liter needed for an x Molar solution from y grams (g M formula)
+year - When an element was discovered
