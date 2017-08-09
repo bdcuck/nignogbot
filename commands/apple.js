@@ -6,4 +6,4 @@ const apple = () => {
 		text += Math.random() < 0.5 ? '🍎' : '🍏';
 	return text;
 };
-module.exports = apple;
+module.exports = ({ reply }) => reply(apple());

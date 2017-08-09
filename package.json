@@ -1,6 +1,6 @@
 {
   "name": "nignogbot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "nignogbot.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "periodic-table": "0.0.8",
     "pubchem-access": "^1.0.1",
     "request": "^2.81.0",
-    "telebotframework": "^0.11.2",
+    "telegraf": "^3.9.0",
     "twitter": "^1.7.1"
   }
 }
