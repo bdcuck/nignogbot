@@ -1,7 +1,4 @@
 'use strict';
-
-const kek = (commandText) => { return 'feature currently under construction faggot' 
-
-    
-};
-module.exports = ({ reply }) => reply(kek());
+const { jokes } = require('../modules/jsons.js');
+const rand = arr => arr[Math.floor(Math.random() * arr.length)];
+module.exports = ({ reply }) => reply(rand(jokes));
