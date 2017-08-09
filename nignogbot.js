@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-
 const Telegraf = require('telegraf');
+
+const fs = require('fs');
 
 const config = require('./config');
 
