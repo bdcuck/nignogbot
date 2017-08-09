@@ -12,7 +12,7 @@ const line = () => new Promise(resolve => rl.once('line', resolve));
 let config;
 
 try {
-	config = loadJSON('config.json');
+	process.argv[2] === '--config' ? config = loadJSON('example.config.json') : config = loadJSON('config.json');
 } catch (err) {
 	if (err.code !== 'ENOENT')
 		throw err;
