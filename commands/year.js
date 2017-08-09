@@ -2,6 +2,7 @@
 
 const pt = require('periodic-table');
 
+const isObject = val => typeof val === 'object';
 const capitalizeFirstLetter = str => str[0].toUpperCase() + str.slice(1);
 
 module.exports = ({ reply, message }) => {
@@ -9,18 +10,14 @@ module.exports = ({ reply, message }) => {
     formula = formula.splice(1, formula.length).join(' ');
     formula ? formula = capitalizeFirstLetter(formula) : formula = ' ';
 
-    if ('object' === typeof pt.symbols[formula])
-        if ('Ancient' === pt.symbols[formula].yearDiscovered)
-            return reply(formula + ' is known since ancient times');
-        else
-            return reply(formula + ' was discovered in ' +
-                pt.symbols[formula].yearDiscovered);
-    else if ('object' === typeof pt.elements[formula])
-        if ('Ancient' === pt.elements[formula].yearDiscovered)
-            return reply(formula + ' is known since ancient times');
-        else
-            return reply(formula + ' was discovered in ' +
-                pt.elements[formula].yearDiscovered);
-    else
+    let found;
+    found = isObject(pt.symbols[formula]) ? pt.symbols[formula].yearDiscovered : found;
+    found = isObject(pt.elements[formula]) ? pt.elements[formula].yearDiscovered : found;
+
+    if (found) {
+        reply('Ancient' === found ?
+            `${formula} is known since ancient times` :
+            `${formula} was discovered in ${found}`);
+    } else
         return reply('Not found!');
-}
+};
