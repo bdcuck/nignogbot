@@ -1,45 +1,44 @@
-            case 'apple':
-            case 'balance':
-            case 'bjstart':
-            case 'bp':
-            case 'cas':
-            case 'config':
-            case 'debug':
-            case 'density':
-            case 'eval':
-            case 'fortune':
-            case 'gayname':
-            case 'geoip':
-            case 'heilhitler':
-            case 'help':
-            case 'jew':
-            case 'kek':
-            case 'kekget':
-            case 'killallevals':
-            case 'killeval':
-            case 'lenny':
-            case 'mass':
-            case 'math':
-            case 'medchem':
-            case 'mol':
-            case 'molar':
-            case 'monopoly':
-            case 'mp':
-            case 'mw':
-            case 'n':
-            case 'nigger':
-            case 'nignog':
-            case 'os':
-            case 'poopoo':
-            case 'prop':
-            case 'rpg':
-            case 'shout':
-            case 'sim':
-            case 'sponge':
-            case 'start':
-            case 'sym':
-            case 'synonym':
-            case 'terribleweebcancer':
-            case 'twat':
-            case 'volume':
-            case 'year':
+touch balance.js
+touch bjstart.js
+touch bp.js
+touch cas.js
+touch config.js
+touch debug.js
+touch density.js
+touch eval.js
+touch fortune.js
+touch gayname.js
+touch geoip.js
+touch heilhitler.js
+touch help.js
+touch jew.js
+touch kek.js
+touch kekget.js
+touch killallevals.js
+touch killeval.js
+touch lenny.js
+touch mass.js
+touch math.js
+touch medchem.js
+touch mol.js
+touch molar.js
+touch monopoly.js
+touch mp.js
+touch mw.js
+touch n.js
+touch nigger.js
+touch nignog.js
+touch os.js
+touch poopoo.js
+touch prop.js
+touch rpg.js
+touch shout.js
+touch sim.js
+touch sponge.js
+touch start.js
+touch sym.js
+touch synonym.js
+touch terribleweebcancer.js
+touch twat.js
+touch volume.js
+touch year.js
