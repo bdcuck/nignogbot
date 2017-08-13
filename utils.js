@@ -43,6 +43,8 @@ const commandText = msg => {
     return text;
 }
 
+const id = msg => msg.from.id;
+
 module.exports = {
 	appendFile,
 	capitalizeFirstLetter,
@@ -52,6 +54,7 @@ module.exports = {
 	date,
 	deleteFile,
 	exists,
+	id,
 	rand,
 	size,
 	stat
