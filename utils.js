@@ -30,10 +30,25 @@ const exists = file => stat(file)
 	.then(() => true)
 	.catch(() => false);
 
+const commandArgs = msg => {
+    let shitfuck = msg;
+    shitfuck = shitfuck.text.split(/\s+/);
+    shitfuck.shift();
+    return shitfuck;
+}
+
+const commandText = msg => {
+    let text = commandArgs(msg);
+    text = text.join(' ');
+    return text;
+}
+
 module.exports = {
 	appendFile,
 	capitalizeFirstLetter,
 	caps,
+    commandArgs,
+    commandText,
 	date,
 	deleteFile,
 	exists,

@@ -1,7 +1,10 @@
 'use strict';
 
-const debug = (commandText) => { return 'feature currently under construction faggot' 
+const { commandArgs, commandText } = require('../utils');
 
-    
-};
-module.exports = ({ reply }) => reply(debug());
+module.exports = ({ reply, message }) => reply(`Args: ${commandArgs(message)}
+Text: ${commandText(message)}
+
+Aids:
+${message}
+`);
