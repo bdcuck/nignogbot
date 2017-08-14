@@ -4,6 +4,7 @@ bp - Boiling point of element
 calc - Calculator
 cas - CAS registry number of compound
 config - Electronic configuration of element
+crypto - Cryptocoin info (/crypto [symbol] e.g. /crypto btc)
 debug - Messageinfo
 density - Density of element
 evaljs - Evaluate JavaScript

@@ -2,7 +2,7 @@
 
 const jew = (commandText) => {
 	let text = '';
-	for (let i = 0; i < Math.floor(Math.random() * 20); i++)
+	for (let i = 0; i < Math.floor((Math.random() * 20) + 1 ); i++)
 		text += 0.5 > Math.random() ? '卐' : '卍';
 
 	return text;
