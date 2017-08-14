@@ -5,6 +5,10 @@ Crappy nignogbot.js code to be cleaned up, then merge with logger.js
 
 ## Issues / To do
 
+[X] Logger deprecated for now because fuck that shit nigga.
+
+[ ] Make code layout prettier because ESLint is an asshole on concatenated strings.     Convert to string literals like medchem.js
+
 [X] The /mol command does not get 2D molecule png. The jsdom shit is broken because DOM element on pubchem changed somewhere and I'm too retarded to figure it out.
 --fixed by @TRGWII
     
@@ -16,7 +20,7 @@ Crappy nignogbot.js code to be cleaned up, then merge with logger.js
 
 [-] Unresolved promise errors in `stat` and `unlink`, sort of fixed by dumping some .catch() everywhere
 
-[ ] TypeErrors happen (probably on sending audio, not sure)
+[X] TypeErrors happen (probably on sending audio, not sure)
 -    `nignogbot-0 (err): TypeError: Cannot read property 'file_id' of undefined`
 
 [ ] Logger stopped working kek

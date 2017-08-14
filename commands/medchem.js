@@ -17,11 +17,12 @@ module.exports = ({ reply, message }) => {
 		])
 		.execute(data =>
 			reply(
-				'IUPAC name: ' + data.IUPACName +
-												',\nXLogP: ' + data.XLogP +
-												',\nComplexity: ' + data.Complexity +
-												', \nH-bond donors: ' + data.HBondDonorCount +
-												', \nH-bond acceptors: ' + data.HBondAcceptorCount +
-												', \nRotatable bonds: ' + data.RotatableBondCount +
-												', \nTopological polar surface area: ' + data.TPSA));
+                `IUPAC name: ${data.IUPACName},
+                XLogP: ${data.XLogP},
+                Complexity: ${data.Complexity},
+                H-bond donors: ${data.HBondDonorCount},
+                H-bond acceptors: ${data.HBondAcceptorCount},
+                Rotatable bonds: ${data.RotatableBondCount},
+                Topological polar surface area: ${data.TPSA}`)
+		);
 };
