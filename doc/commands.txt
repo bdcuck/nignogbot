@@ -42,4 +42,5 @@ synonym - Lists synonyms for compounds
 terribleweebcancer - Admin-only trolling
 twat - Send Twitter message via @rambodildo
 volume - Liter needed for an x Molar solution from y grams (g M formula)
+weather - Shows the weather (e.g. /weather Amsterdam)
 year - When an element was discovered
