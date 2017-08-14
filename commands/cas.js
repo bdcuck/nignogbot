@@ -1,7 +1,14 @@
 'use strict';
 
-const cas = (commandText) => { return 'feature currently under construction faggot' 
+const pubchem = require('pubchem-access').domain('compound');
+const { commandText } = require('../utils');
 
-    
-};
-module.exports = ({ reply }) => reply(cas());
+module.exports = ({ reply, message }) => {
+    pubchem
+    .setName(commandText(message))
+    .getCas()
+    .execute((data, status) =>
+        1 === status
+            ? reply(data + ' ')
+            : reply(data + ', status: ' + status));
+}
