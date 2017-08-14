@@ -15,7 +15,7 @@ module.exports = ({ reply, message }) => {
 		.execute(data =>
 			reply(
 				'IUPAC name: ' + data.IUPACName +
-												',\nMW: ' + data.MolecularWeight +
-												',\nFormula: ' + data.MolecularFormula +
-												', \nSMILES: ' + data.CanonicalSMILES));
+				',\nMW: ' + data.MolecularWeight +
+				',\nFormula: ' + data.MolecularFormula +
+				', \nSMILES: ' + data.CanonicalSMILES));
 };
