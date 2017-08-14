@@ -1,4 +1,4 @@
 'use strict';
 
-const monopoly = (commandText) => 'feature currently under construction faggot';
+const monopoly = (commandText) => 'Go to jail. 👉🏿';
 module.exports = ({ reply }) => reply(monopoly());
