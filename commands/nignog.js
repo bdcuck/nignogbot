@@ -1,7 +1,4 @@
 'use strict';
 
-const nignog = (commandText) => { return 'feature currently under construction faggot' 
-
-    
-};
+const nignog = (commandText) => 'feature currently under construction faggot';
 module.exports = ({ reply }) => reply(nignog());

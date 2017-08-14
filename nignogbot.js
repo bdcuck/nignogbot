@@ -17,6 +17,7 @@ fs.readdirSync('commands')
 		name: x.split('.').slice(0, -1).join('.')
 	})).forEach(command =>
 		app.command(command.name, require(command.file)));
+
 /*
 
 // dumb test, make into module as well

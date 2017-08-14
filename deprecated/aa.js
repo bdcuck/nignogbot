@@ -12,22 +12,22 @@ const request = require('request');
 bot.startLongpolling();
 
 bot.on('photo', msg => {
-    let ass;
-    https.get('https://api.telegram.org/bot' + bottoken + '/getFile?file_id=' + msg._fileId, res => {
-        let data = '';
-        res.on('data', d => data += d);
-        res.on('end', () => {
-            data = JSON.parse(data)
-                .result;
-            if (debug) console.log(data);
-            ass = data.file_path;
-            request.defaults({encoding: null}).get('https://api.telegram.org/file/bot' + bottoken + '/' + ass, function(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    let pic = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
-                    let str = '<img src="' + pic + '"/>'; 
-                    fs.appendFile('./test.html', str);
-                }
-            });
-        });
-    });
+	let ass;
+	https.get('https://api.telegram.org/bot' + bottoken + '/getFile?file_id=' + msg._fileId, res => {
+		let data = '';
+		res.on('data', d => data += d);
+		res.on('end', () => {
+			data = JSON.parse(data)
+				.result;
+			if (debug) console.log(data);
+			ass = data.file_path;
+			request.defaults({ encoding: null }).get('https://api.telegram.org/file/bot' + bottoken + '/' + ass, (error, response, body) => {
+				if (!error && response.statusCode == 200) {
+					const pic = 'data:' + response.headers['content-type'] + ';base64,' + new Buffer(body).toString('base64');
+					const str = '<img src="' + pic + '"/>';
+					fs.appendFile('./test.html', str);
+				}
+			});
+		});
+	});
 });

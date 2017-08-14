@@ -31,17 +31,17 @@ const exists = file => stat(file)
 	.catch(() => false);
 
 const commandArgs = msg => {
-    let shitfuck = msg;
-    shitfuck = shitfuck.text.split(/\s+/);
-    shitfuck.shift();
-    return shitfuck;
-}
+	let shitfuck = msg;
+	shitfuck = shitfuck.text.split(/\s+/);
+	shitfuck.shift();
+	return shitfuck;
+};
 
 const commandText = msg => {
-    let text = commandArgs(msg);
-    text = text.join(' ');
-    return text;
-}
+	let text = commandArgs(msg);
+	text = text.join(' ');
+	return text;
+};
 
 const id = msg => msg.from.id;
 
@@ -49,8 +49,8 @@ module.exports = {
 	appendFile,
 	capitalizeFirstLetter,
 	caps,
-    commandArgs,
-    commandText,
+	commandArgs,
+	commandText,
 	date,
 	deleteFile,
 	exists,

@@ -28,9 +28,9 @@ const validate = async (object, name, def,
 		const value = preprocessor((await line()).trim());
 		if (validator(value))
 			object[name] = value;
-		else	
+		else
 			console.log('Invalid ' + name + ', try again!');
-	}	
+	}
 };
 
 (async (config) => {

@@ -1,7 +1,4 @@
 'use strict';
 
-const kekget = (commandText) => { return 'feature currently under construction faggot' 
-
-    
-};
+const kekget = (commandText) => 'feature currently under construction faggot';
 module.exports = ({ reply }) => reply(kekget());

@@ -1,7 +1,4 @@
 'use strict';
 
-const shout = (commandText) => { return 'feature currently under construction faggot' 
-
-    
-};
+const shout = (commandText) => 'feature currently under construction faggot';
 module.exports = ({ reply }) => reply(shout());
