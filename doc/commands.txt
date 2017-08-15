@@ -11,7 +11,6 @@ evaljs - Evaluate JavaScript
 fortune - Shows your fortune
 gayname - Your gay name
 geoip - Location (e.g. /geoip google.com)
-heilhitler - Admin-only trolling
 help - Shows help message
 jew - Random Swastika
 kek - Nigger jokes
@@ -39,8 +38,11 @@ sponge - Spongememe
 start - Shows help message
 sym - Gives symbol for element and vice versa
 synonym - Lists synonyms for compounds
-terribleweebcancer - Admin-only trolling
 twat - Send Twitter message via @rambodildo
 volume - Liter needed for an x Molar solution from y grams (g M formula)
 weather - Shows the weather (e.g. /weather Amsterdam)
 year - When an element was discovered
+xkcd - Sends a random XKCD comic
+
+// heilhitler - Admin-only trolling
+// terribleweebcancer - Admin-only trolling
