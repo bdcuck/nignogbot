@@ -11,4 +11,9 @@ module.exports = ({ replyWithPhoto }) =>
 		.then(data =>
 			json(`https://xkcd.com/${rand(data.num)}/info.0.json`))
 		.then(data =>
-			replyWithPhoto(data.img, { caption: data.title }));
+			replyWithPhoto(data.img, {
+				caption:
+					data.title + '\n\n' +
+					data.alt + '\n\n' +
+					'https://xkcd.com/' + data.num + '/'
+			}));
