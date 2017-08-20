@@ -5,6 +5,8 @@ Crappy nignogbot.js code to be cleaned up, then merge with logger.js
 
 ## Issues / To do
 
+[ ] Assballs clitcock cipher but too lazy to think of 26 such words.
+
 [ ] Include help string in every module and generate /help from that
 
 [X] Logger deprecated for now because fuck that shit nigga.

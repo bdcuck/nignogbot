@@ -1,3 +1,5 @@
+'use strict'
+
 const { commandText } = require('../utils');
 const { json } = require('req');
 const K = 273.15;
