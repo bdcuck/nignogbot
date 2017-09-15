@@ -22,6 +22,8 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 
+require('./modules/log').register(app);
+
 /*
 // dumb test, make into module as well
 app.command('admin', (ctx) => ctx.getChatAdministrators().then(adm => {
