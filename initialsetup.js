@@ -12,7 +12,9 @@ const line = () => new Promise(resolve => rl.once('line', resolve));
 let config;
 
 try {
-	process.argv[2] === '--config' ? config = loadJSON('example.config.json') : config = loadJSON('config.json');
+	process.argv[2] === '--config'
+		? config = loadJSON('example.config.json')
+		: config = loadJSON('config.json');
 } catch (err) {
 	if (err.code !== 'ENOENT')
 		throw err;
@@ -62,3 +64,4 @@ const validate = async (object, name, def,
 
 	console.log('config.json OK');
 })(config);
+
