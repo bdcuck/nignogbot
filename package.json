@@ -16,7 +16,6 @@
     "periodic-table": "0.0.8",
     "pubchem-access": "^1.0.1",
     "req": "github:trgwii/req",
-    "request": "^2.81.0",
     "telegraf": "^3.9.0",
     "twitter": "^1.7.1"
   }
