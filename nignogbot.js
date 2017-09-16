@@ -6,6 +6,8 @@ const config = require('./config');
 
 const app = new Telegraf(config.telegram.token);
 
+const log = require('./modules/log').register(app);
+
 app.telegram.getMe().then(bot =>
 	app.options.username = bot.username);
 
@@ -18,7 +20,10 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 
-require('./modules/log').register(app);
+app.on('new_chat_members', ({ message, reply }) =>
+	message.new_chat_member.is_bot &&
+	message.new_chat_member.username !== app.options.username &&
+	reply('\u{26A0} Bot detected!'));
 
 /*
 // dumb test, make into module as well
