@@ -20,9 +20,11 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 
-log.register(app);
-
-app.on('new_chat_members', ({ message, reply }) =>
+app.on([
+	'new_chat_members',
+	'new_chat_member',
+	'new_chat_participant'
+], ({ message, reply }) =>
 	message.new_chat_member.is_bot &&
 	message.new_chat_member.username !== app.options.username &&
 	reply('⚠️ Bot detected!'));
