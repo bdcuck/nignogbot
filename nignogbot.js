@@ -24,6 +24,7 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 
+
 app.on('new_chat_members', (ctx) => {
 	if(ctx.update.message.new_chat_member.is_bot && ctx.update.message.new_chat_member.username !== app.options.username) return ctx.reply('\u{26A0} Bot detected!');
 });
