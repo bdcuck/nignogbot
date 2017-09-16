@@ -10,6 +10,8 @@ const app = new Telegraf(config.telegram.token);
 
 const https = require('https');
 
+const log = require('./modules/log');
+
 app.telegram.getMe().then(bot =>
 	app.options.username = bot.username);
 
@@ -22,7 +24,11 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 
-require('./modules/log').register(app);
+app.on('new_chat_members', (ctx) => {
+	if(ctx.update.message.new_chat_member.is_bot && ctx.update.message.new_chat_member.username !== bot.username) return ctx.reply('\u{26A0} Bot detected!');
+});
+
+log.register(app);
 
 /*
 // dumb test, make into module as well
