@@ -23,7 +23,7 @@ app.hears(...require('./modules/tokenGet'));
 app.on('new_chat_members', ({ message, reply }) =>
 	message.new_chat_member.is_bot &&
 	message.new_chat_member.username !== app.options.username &&
-	reply('\u{26A0} Bot detected!'));
+	reply('⚠️ Bot detected!'));
 
 /*
 // dumb test, make into module as well
