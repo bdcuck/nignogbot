@@ -6,7 +6,8 @@ const bot = {
 	queue: [],
 	get: fn => bot.queue.push(fn),
 	register: instance => {
-		bot.queue.reduce((_, item) => item(instance), undefined);
+		while (bot.queue.length > 0)
+			bot.queue.shift()(instance);
 		bot.get = fn => fn(instance);
 		return log;
 	}
