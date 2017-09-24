@@ -20,15 +20,16 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 
-app.on([
-	'new_chat_members',
-	'new_chat_member',
-	'new_chat_participant'
-], ({ message, reply }) =>
-	message.new_chat_member.is_bot &&
-	message.new_chat_member.username !== app.options.username &&
-	reply('⚠️ Bot detected!'));
-
+app.on(['new_chat_members', 'new_chat_member', 'new_chat_participant'], ({ message, reply }) => {
+	if(message.new_chat_member.is_bot && message.new_chat_member.username !== app.options.username && reply('⚠️ Bot detected!')) return;
+	if(message.new_chat_member.language_code){
+	if(message.new_chat_member.language_code === 'nl-NL' && reply('⚠️ Piece of shit Dutch stonerfag detected')) return;
+	let arab = message.new_chat_member.language_code.match(/ar/g);
+	if(arab === null) arab = [];
+	if(arab.indexOf('ar') !== -1 && reply('⚠️ MUSLIM ARAB NIGGER SHIT DETECTED!')) return;
+		}
+	}
+)
 /*
 // dumb test, make into module as well
 app.command('admin', (ctx) => ctx.getChatAdministrators().then(adm => {
