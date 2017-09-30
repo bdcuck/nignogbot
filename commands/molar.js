@@ -1,5 +1,8 @@
 'use strict';
 
+const molar = (commandText) => 'feature currently under construction faggot';
+module.exports = ({ reply }) => reply(molar());
+
 /*
 const pt = require('periodic-table');
 const util = require('periodic-table/util');
