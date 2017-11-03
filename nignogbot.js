@@ -16,7 +16,7 @@ fs.readdirSync('commands')
 		file: './commands/' + x,
 		name: x.split('.').slice(0, -1).join('.')
 	})).forEach(command =>
-		app.command(command.name, require(command.file)));
+		app.command(command.name, require(command.file)).catch((err) => console.log(err)));
 
 app.hears(...require('./modules/tokenGet'));
 
