@@ -1,0 +1,52 @@
+{
+	"message_id": 363142,
+	"from": {
+		"id": 126131628,
+		"is_bot": false,
+		"first_name": "Bd",
+		"username": "bdnugget",
+		"language_code": "nl-NL"
+	},
+	"chat": {
+		"id": -1001055364781,
+		"title": "Eppi Aluin 🍊 👁 Illuminaughty 💦",
+		"type": "supergroup"
+	},
+	"date": 1509723282,
+	"reply_to_message": {
+		"message_id": 363140,
+		"from": {
+			"id": 325025850,
+			"is_bot": false,
+			"first_name": "امیر",
+			"last_name": "علی زاده"
+		},
+		"chat": {
+			"id": -1001055364781,
+			"title": "Eppi Aluin 🍊 👁 Illuminaughty 💦",
+			"type": "supergroup"
+		},
+		"date": 1509722852,
+		"forward_from_chat": {
+			"id": -1001089079027,
+			"title": "کانال رسمی کافه بازار",
+			"username": "CafeBazarOfficial",
+			"type": "channel"
+		},
+		"forward_from_message_id": 68,
+		"forward_date": 1509484600,
+		"document": {
+			"file_name": "PoolGram.apk",
+			"mime_type": "application/vnd.android.package-archive",
+			"file_id": "BQADBAAD5AIAAsztyFOUbW6Z9ZJG6QI",
+			"file_size": 19428037
+		},
+		"caption": "💰اولین اپلیکیشن درآمدزایی 100% موفق در تلگرام!💰\n\n🔰با تلگرام خود روزانه تا 100هزارتومان درآمد داشته باشد!\n\n🔰کافیه بعد از دریافت و نصب، با شماره تلگرامتون وارد بشید و سریعاً شروع به کسب درآمد کنید!"
+	},
+	"text": "/debug@nignogbot",
+	"entities": [{
+		"offset": 0,
+		"length": 16,
+		"type": "bot_command"
+	}]
+}

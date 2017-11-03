@@ -20,6 +20,21 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 
+app.on('message', (ctx) => {
+	if(!ctx.message.forward_from_chat) return;
+	if(ctx.message.forward_from_chat.id === -1001089079027){
+		
+		ctx.getChatAdministrators().then(adm => {
+			let warn = '⚠️⚠️⚠️⚠️⚠️\n';
+			adm.forEach(x => {
+				warn += ('@' + x.user.username + '\n');
+			})
+			warn += '⚠️⚠️⚠️⚠️⚠️\nPiece of shit arab .apk spam detected!'
+			ctx.reply(warn);
+		})
+	}
+}); 
+
 app.on(['new_chat_members', 'new_chat_member', 'new_chat_participant'], ({ message, reply }) => {
 	if(message.new_chat_member.is_bot && message.new_chat_member.username !== app.options.username && reply('⚠️ Bot detected!')) return;
 	if(message.new_chat_member.language_code){
