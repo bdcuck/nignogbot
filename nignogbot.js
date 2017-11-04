@@ -45,13 +45,5 @@ app.on(['new_chat_members', 'new_chat_member', 'new_chat_participant'], ({ messa
 		}
 	}
 )
-/*
-// dumb test, make into module as well
-app.command('admin', (ctx) => ctx.getChatAdministrators().then(adm => {
-    let adminstat = adm.find(x => x.user.id === ctx.from.id)
-    	? adm.find(x => x.user.id === ctx.from.id).status
-	: 'a faggot';
-    ctx.reply(ctx.from.first_name + ', you are ' + adminstat);
-}));
-*/
+
 app.startPolling();
