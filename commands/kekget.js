@@ -1,6 +1,7 @@
 'use strict';
 
 const kekget = () => {
+    let text = '';
     for (let i = 0; i < Math.floor(Math.random() * 20); i++)
         text += 0.5 > Math.random() ? 'K' : 'E';
     if ('KEK' === text)
