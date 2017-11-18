@@ -5,7 +5,7 @@ const kekget = () => {
     for (let i = 0; i < Math.floor(Math.random() * 20); i++)
         text += 0.5 > Math.random() ? 'K' : 'E';
     if ('KEK' === text)
-        return ('\nYOU WIN TOPKEK!!!');
+        return (text + '\nYOU WIN TOPKEK!!!');
     else if ('KKK' === text)
         return (text + '\nYOU WIN TOPKKK HEIL HITLER!!!');
     else if ('KEKKEK' === text)
