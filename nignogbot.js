@@ -19,7 +19,7 @@ fs.readdirSync('commands')
 		app.command(command.name, require(command.file)).catch((err) => console.log(err)));
 
 app.hears(...require('./modules/tokenGet'));
-app.hears(/\b(rate)\b/i, ({ reply }) => reply(`${(~~(Math.random() * 10) + 1)}/10`));
+app.hears(/\b(r8)\b/i, ({ reply }) => reply(`${(~~(Math.random() * 10) + 1)}/10`));
 
 app.on('message', (ctx) => {
 	if(!ctx.message.forward_from_chat) return;
