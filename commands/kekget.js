@@ -18,6 +18,6 @@ const kekget = () => {
         return (text + '\nQUINTUPLE TOPKEKKEKKEKKEKKEK!!! UNBELIEVABLE M8!!!');
     else
         return (
-            '\nLength: \n' + text.length);
+            text + '\nLength: \n' + text.length);
 }
 module.exports = ({ reply }) => reply(kekget());
