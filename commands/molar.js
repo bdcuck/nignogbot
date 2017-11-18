@@ -10,20 +10,7 @@ module.exports = ({ reply, message }) => {
     formula = formula.splice(1, formula.length).join(' ');
     formula ? formula = capitalizeFirstLetter(formula) : formula = ' ';
 
-    if (pt.symbols[formula]) {
-        const celsius =
-            Number(pt.symbols[formula].meltingPoint) - 273;
-        return reply('The melting point of ' + formula + ' is ' +
-            pt.symbols[formula].meltingPoint + ' K or ' +
-            celsius + 'ºC');
-    } else if (pt.elements[formula]) {
-        const celsius =
-            Number(pt.elements[formula].meltingPoint) - 273;
-        return reply('The melting point of ' + formula + ' is ' +
-            pt.elements[formula].meltingPoint + ' K or ' +
-            celsius + 'ºC');
-    } else {
-        return reply('Not found!');
-    }
+    return reply('Not found!');
+    
 }
 
