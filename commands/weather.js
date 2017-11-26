@@ -3,6 +3,18 @@
 const { commandText } = require('../utils');
 const { json } = require('req');
 const K = 273.15;
+const getCardinalDirection = (angle) => {
+	if (typeof angle === 'string') angle = parseInt(angle);
+	if (angle <= 0 || angle > 360 || typeof angle === 'undefined') return '☈';
+	const arrows = { north: '↑ N', north_east: '↗ NE', east: '→ E', south_east: '↘ SE', south: '↓ S', south_west: '↙ SW', west: '← W', north_west: '↖ NW' };
+	const directions = Object.keys(arrows);
+	const degree = 360 / directions.length;
+	angle = angle + degree / 2;
+	for (let i = 0; i < directions.length; i++) {
+	  if (angle >= (i * degree) && angle < (i + 1) * degree) return arrows[directions[i]];
+	}
+	return arrows['north'];
+  }
 const icons = {
 	"01d": "☀", "01n": "🌕",
 	"02d": "🌤", "02n": "🌤",
@@ -27,6 +39,7 @@ module.exports = ({ reply, message }) => {
 		Min: ${Math.floor(data.main.temp_min - K)}°C
 		Humidity: ${Math.floor(data.main.humidity)}%
 		Air pressure: ${Math.floor(data.main.pressure)} hPa
+		Wind: ${data.wind.speed}m/s ${getCardinalDirection(data.wind.deg)}
 		`)
 	})
 };
