@@ -23,17 +23,7 @@ app.hears(/\b(r8)\b/i, ({ reply }) => reply(`${(~~(Math.random() * 11) + 1)}/10`
 
 app.on('message', (ctx) => {
 	if(!ctx.message.forward_from_chat) return;
-	if(ctx.message.forward_from_chat.id === -1001089079027){
-		
-		ctx.getChatAdministrators().then(adm => {
-			let warn = '⚠️⚠️⚠️⚠️⚠️\n';
-			adm.forEach(x => {
-				warn += ('@' + x.user.username + '\n');
-			})
-			warn += '⚠️⚠️⚠️⚠️⚠️\nPiece of shit arab .apk spam detected!'
-			ctx.reply(warn);
-		})
-	}
+	if(ctx.message.forward_from_chat.id === -1001323363998) return ctx.reply('⚠️ Don\'t send disgusting chinese kids. Only yellow allowed are bananas. ⚠️\n ⚠️@bdnugget will be so pissed lole ⚠️')
 }); 
 
 app.on(['new_chat_members', 'new_chat_member', 'new_chat_participant'], ({ message, reply }) => {
