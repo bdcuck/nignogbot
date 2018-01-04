@@ -11,6 +11,11 @@ const log = require('./modules/log').register(app);
 app.telegram.getMe().then(bot =>
 	app.options.username = bot.username);
 
+app.catch(() => (app.stop(),
+clear(config.token)
+	.catch(err => console.error(`${err.name}: ${err.message}`))
+	.then(() => app.startPolling())));
+
 fs.readdirSync('commands')
 	.map(x => ({
 		file: './commands/' + x,

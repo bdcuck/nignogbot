@@ -1,20 +1,26 @@
-'use strict';
+import http from 'http';
+import https from 'https';
+import {URL} from 'url';
 
-<<<<<<< HEAD
-    const Telegraf = require('telegraf');
+const getJSON = url =>
+    new Promise((resolve, reject) =>
+        (lib =>
+            lib.get(url, (res, data = '') =>
+                (res.once('error', reject),
+                    res.on('data', chunk => data += chunk),
+                    res.once('end', () => resolve(JSON.parse(data)))))
+                .once('error', reject))(new URL(url).protocol === 'https:'
+            ? https
+            : http));
 
-    const config = require('./config');
+const clear = (token, offset = 0) =>
+    getJSON(
+        `https://api.telegram.org/bot${token}/getUpdates?offset=${offset}`
+    ).then(response => response.result.length === 0
+        ? 'done'
+        : clear(token, response.result.pop().update_id + 1));
 
-    const app = new Telegraf(config.telegram.token);
+if (require.main === module)
+    clear(process.argv[2]).then(result => console.log(result));
 
-    app.startPolling();
-
-=======
-const Telegraf = require('telegraf');
-
-const config = require('./config');
-
-const app = new Telegraf(config.telegram.token);
-
-app.startPolling();
->>>>>>> fd3befeabd911c8e10044f618d782c467d46d26f
+module.exports = clear;
