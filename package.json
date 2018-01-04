@@ -1,22 +1,22 @@
 {
   "name": "nignogbot",
-  "version": "2.0.0",
-  "description": "",
+  "version": "2.1.0",
+  "description": "Nignogbot v2",
   "main": "nignogbot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bdnugget <info@medchem.nl>",
   "license": "ISC",
   "dependencies": {
     "geoip-lite": "^1.2.1",
-    "jsdom": "^11.0.0",
-    "mathjs": "^3.14.1",
+    "jsdom": "^11.5.1",
+    "mathjs": "^3.18.1",
     "periodic-table": "0.0.8",
     "pubchem-access": "^1.0.1",
     "req": "github:trgwii/req",
-    "telegraf": "^3.9.0",
+    "telegraf": "^3.17.2",
     "twitter": "^1.7.1"
   }
 }
