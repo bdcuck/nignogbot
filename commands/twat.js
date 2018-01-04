@@ -7,7 +7,7 @@ const Twitter = new TwitterPackage(config.twitter);
 
 module.exports = ({ reply, message }) => {
 	if (commandText(message)) {
-		const tweet = commandText(message) + ' - ' + message.from.first_name;
+		const tweet = (commandText(message) + ' - ' + message.from.first_name).replace('@', '@ ');
 		if (280 >= tweet.length)
 			Twitter.post('statuses/update', {
 				status: tweet
