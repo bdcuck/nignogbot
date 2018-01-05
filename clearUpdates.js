@@ -1,6 +1,8 @@
-import http from 'http';
-import https from 'https';
-import {URL} from 'url';
+'use strict';
+
+const http = require('http');
+const https = require('https');
+const { URL } = require('url');
 
 const getJSON = url =>
     new Promise((resolve, reject) =>
