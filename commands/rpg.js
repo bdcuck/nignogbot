@@ -2,13 +2,12 @@
 
 const { commandArgs } = require('../utils');
 const DrugRPG = require('../modules/drugrpg.js');
-const rpgRound = new DrugRPG();
+const rpg = new DrugRPG();
 let runningGames = {};
 
-const rpg = (commandText) => 'feature currently under construction faggot';
 module.exports = ({ message, reply }) => {
     const args = commandArgs(message);
-    if ('function' === typeof rpgRound[args[0]]) {
+    if ('function' === typeof rpg[args[0]]) {
         const [ action ] = args;
         const game = runningGames[message.from.id] ||
             (runningGames[message.from.id] = new DrugRPG());
