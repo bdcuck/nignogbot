@@ -56,11 +56,11 @@ const niggerify = (str, limit) => {
 	regex = new RegExp('(nigger+|nigga+|nibba+)', 'gi');
 	str = str.replace(regex, "ni🅱🅱a️");
 	let splitBody = str.split(' ');
-	for (i = 0; i < splitBody.length; i++) {
+	for (let i = 0; i < splitBody.length; i++) {
 		if (splitBody.join(' ').length > limit) break;
-		const emojiAmount = Math.floor(Math.random() * 10) + 0;
-		for (j = 0; j < emojiAmount; j++) {
-			const theEmoji = emoji[Math.floor(Math.random() * emoji.length)];
+		let emojiAmount = Math.floor(Math.random() * 10) + 0;
+		for (let j = 0; j < emojiAmount; j++) {
+			let theEmoji = emoji[Math.floor(Math.random() * emoji.length)];
 			splitBody[i] = splitBody[i] + theEmoji;
 		}
 	}
