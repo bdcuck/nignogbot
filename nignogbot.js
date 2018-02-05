@@ -4,8 +4,9 @@ const Telegraf = require('telegraf');
 const fs = require('fs');
 const config = require('./config');
 const clear = require('./clearUpdates');
+const { BotMod } = require('./utils');
 
-const app = new Telegraf(config.telegram.token);
+const app = BotMod.apply(new Telegraf(config.telegram.token));
 
 const log = require('./modules/log').register(app);
 

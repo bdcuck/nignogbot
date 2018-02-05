@@ -2,6 +2,34 @@
 
 const fs = require('fs');
 
+const { Composer } = require('telegraf')
+
+class BotMod {
+  static apply (bot) {
+    // All commands lowercase
+    bot.command = function (commands, ...fns) {
+      commands = Array.isArray(commands)
+        ? commands.map((command) => command.toLowerCase())
+        : commands.toLowerCase()
+      return this.use(Composer.command(commands, ...fns))
+    }
+
+    // All incoming commands lowercase
+    bot.use(BotMod.lowercase())
+    return bot
+  }
+
+  static lowercase () {
+    return Composer.entity('bot_command',
+      (ctx, next) => {
+        const entity = ctx.message.entities.find(entity => entity.offset === 0 && entity.type === 'bot_command')
+        const command = ctx.message.text.substring(entity.offset, entity.offset + entity.length)
+        ctx.message.text = ctx.message.text.split(command).join(command.toLowerCase())
+        return next(ctx)
+      })
+  }
+}
+
 const date = () => new Date().toLocaleString().split('.')[0].replace('T', ' ');
 
 const rand = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -70,6 +98,7 @@ const niggerify = (str, limit) => {
 
 module.exports = {
 	appendFile,
+	BotMod,
 	capitalizeFirstLetter,
 	caps,
 	commandArgs,
