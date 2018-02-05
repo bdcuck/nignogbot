@@ -3,6 +3,7 @@
 const { commandText, niggerify } = require('../utils');
 
 module.exports = ({ message, reply }) => {
-    if(!commandText(message)) return reply('🅿️🅾️🅾️🅿️🤪🆑ℹ️✝️');
-    return reply(niggerify(commandText(message), 4096));
+    const msg = commandText(message.reply_to_message) | commandText(message)
+    if(!msg) return reply('🅿️🅾️🅾️🅿️🤪🆑ℹ️✝️');
+    return reply(niggerify(msg, 4096));
 }
