@@ -55,7 +55,7 @@ const niggerify = (str, limit) => {
 	str = str.replace(regex, "🅱️");
 	regex = new RegExp('(nigger+|nigga+|nibba+)', 'gi');
 	str = str.replace(regex, "ni🅱🅱a️");
-	splitBody = str.split(' ');
+	let splitBody = str.split(' ');
 	for (i = 0; i < splitBody.length; i++) {
 		if (splitBody.join(' ').length > limit) break;
 		const emojiAmount = Math.floor(Math.random() * 10) + 0;
