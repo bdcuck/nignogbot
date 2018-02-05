@@ -3,6 +3,7 @@
 const Telegraf = require('telegraf');
 const fs = require('fs');
 const config = require('./config');
+const clear = require('./clearUpdates');
 
 const app = new Telegraf(config.telegram.token);
 

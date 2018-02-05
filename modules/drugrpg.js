@@ -5,7 +5,7 @@ function DrugRPG() {
 	let chems = 0;
 	let prisonChance = 0.0001;
 	let timesInPrison = 0;
-	const dealers = {};
+	let dealers = {};
 	function prison(reason) {
 		drugs = chems = 0;
 		money = 4;
