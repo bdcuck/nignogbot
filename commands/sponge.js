@@ -3,7 +3,7 @@
 const { commandText, caps } = require('../utils');
 
 module.exports = ({ replyWithPhoto, message }) => {
-	let spongemock = commandText(message);
+	let spongemock = message.reply_to_message ? message.reply_to_message.text : commandText(message);
 	if (!spongemock) spongemock =
 								'I\'m too retarded to type some text';
 	spongemock = caps(spongemock);
