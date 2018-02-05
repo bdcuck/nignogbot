@@ -77,6 +77,7 @@ module.exports = {
 	date,
 	deleteFile,
 	exists,
+	niggerify,
 	id,
 	rand,
 	size,
