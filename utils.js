@@ -58,7 +58,7 @@ const niggerify = (str, limit) => {
 	let splitBody = str.split(' ');
 	for (let i = 0; i < splitBody.length; i++) {
 		if (splitBody.join(' ').length > limit) break;
-		let emojiAmount = Math.floor(Math.random() * 10) + 0;
+		let emojiAmount = Math.floor(Math.random() * 5) + 0;
 		for (let j = 0; j < emojiAmount; j++) {
 			let theEmoji = emoji[Math.floor(Math.random() * emoji.length)];
 			splitBody[i] = splitBody[i] + theEmoji;
