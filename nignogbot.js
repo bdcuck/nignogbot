@@ -27,6 +27,7 @@ fs.readdirSync('commands')
 
 app.hears(...require('./modules/tokenGet'));
 app.hears(/\b(r8)\b/i, ({ reply }) => reply(`${(~~(Math.random() * 11) + 1)}/10`));
+app.hears(/\b(wonder)\b/i, ({ replyWithPhoto }) => replyWithPhoto('https://www.billboard.com/files/media/stevie-wonder-smile-performance-a-2017-billboard-1548.jpg'));
 
 app.on('message', (ctx) => {
 	if(!ctx.message.forward_from_chat) return;
