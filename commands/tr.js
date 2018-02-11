@@ -41,10 +41,10 @@ const parseText = str => {
     return translate.languages.getCode(checkStr) ? str.replace(lang, '') : str;
 };
 
-module.exports = ({ reply, message }) => {
+module.exports = ({ replyWithMarkdown, message }) => {
 
     const parsedText = parseText(message.reply_to_message ? message.reply_to_message.text : commandText(message));
-    if(!parsedText) return reply('Nothing to translate, you fat fuck');
-    return translate(parsedText, parseLanguages(commandText(message)) ).then(res => reply(res.text));
+    if(!parsedText) return replyWithMarkdown('Nothing to translate, you fat fuck');
+    return translate(parsedText, parseLanguages(commandText(message)) ).then(res => replyWithMarkdown(`_(from: ${translate.languages[res.from.language.iso]})_ \n${res.text}`) && console.log(res));
 
 };
