@@ -7,5 +7,5 @@ module.exports = ({ replyWithPhoto, message }) => {
 	if (!spongemock) spongemock =
 								'I\'m too retarded to type some text';
 	spongemock = caps(spongemock);
-	replyWithPhoto('http://i1.kym-cdn.com/entries/icons/original/000/022/940/spongebobicon.jpg', { caption: spongemock });
+	replyWithPhoto('http://i1.kym-cdn.com/entries/icons/original/000/022/940/spongebobicon.jpg', { caption: spongemock, reply_to_message_id: message.message_id });
 };
