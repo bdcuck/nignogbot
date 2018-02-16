@@ -31,6 +31,7 @@ const parseLanguages = str => {
 }
 
 const parseText = str => {
+    if(!str) return;
     if(langColonLang.exec(str)) return str.replace(langColonLang, '');
     const match = lang.exec(str);
     let checkStr = '';
