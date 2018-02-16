@@ -42,7 +42,7 @@ app.on(['new_chat_members', 'new_chat_member', 'new_chat_participant'], ({ messa
 
 app.catch(() => (app.stop(),
 clear(config.token)
-	.catch(err => console.error(`${err.name}: ${err.message}`))
+	.catch(err => console.error(`FUCK YOu GAY CATCHNIGGER:\n${err.name}: ${err.message}`))
 	.then(() => app.startPolling())));
 
 app.startPolling();
