@@ -1,5 +1,6 @@
 'use strict';
 
+const { commandArgs } = require('../utils');
 const fs = require('fs');
 const commands = fs.readdirSync('commands')
   .map(x => ({
@@ -13,3 +14,5 @@ const commands = fs.readdirSync('commands')
 const helpText = commands.map(x => x.help).join('\n')
 
 module.exports = ({ replyWithMarkdown }) => replyWithMarkdown(helpText);
+
+module.exports.help = 'This message, dumbass';
