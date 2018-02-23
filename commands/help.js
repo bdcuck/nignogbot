@@ -7,9 +7,9 @@ const commands = fs.readdirSync('commands')
     name: x.split('.').slice(0, -1).join('.')
   })).map(x => ({
     ...x,
-    help: x.name + ' - ' + (require(x.file).help || 'No description yet lmao')
+    help: `*${x.name}* - _${(require(x.file).help || 'No description yet lmao')}_`
   }));
 
 const helpText = commands.map(x => x.help).join('\n')
 
-module.exports = ({ reply }) => reply(helpText);
+module.exports = ({ replyWithMarkdown }) => replyWithMarkdown(helpText);

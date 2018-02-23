@@ -19,3 +19,5 @@ module.exports = ({ reply, message }) => {
 	return reply('Not found!');
 
 };
+
+module.exports.help = 'Electronic configuration of an element, e.g. /config Hg';

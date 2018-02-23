@@ -7,3 +7,5 @@ const apple = () => {
 	return text;
 };
 module.exports = ({ reply }) => reply(apple());
+
+module.exports.help = 'Print random stupid apples';

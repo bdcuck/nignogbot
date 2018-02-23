@@ -21,3 +21,5 @@ const kekget = () => {
             text + '\nLength: \n' + text.length);
 }
 module.exports = ({ reply }) => reply(kekget());
+
+module.exports.help = 'Try to get a KEK or KKK, or even a multiKEK';

@@ -50,4 +50,4 @@ module.exports = ({ replyWithMarkdown, message }) => {
 
 };
 
-module.exports.help = 'FAT BONER TRANSLATE HELP TEST';
+module.exports.help = '';

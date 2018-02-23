@@ -26,3 +26,5 @@ module.exports = ({ reply, message }) => {
                 Topological polar surface area: ${data.TPSA}`)
 		);
 };
+
+module.exports.help = 'Some MedChem properties for a compound. Example usage: /medchem methamphetamine';

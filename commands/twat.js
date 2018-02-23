@@ -25,3 +25,5 @@ module.exports = ({ reply, message }) => {
 		reply('You forgot your message retard');
 	}
 };
+
+module.exports.help = '/twat [message] to Tweet your gay shit';

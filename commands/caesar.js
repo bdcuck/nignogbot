@@ -35,3 +35,5 @@ module.exports = ({ reply, message }) => {
 	return reply(caesarShift(boner, amount));
 
 }
+
+module.exports.help = 'Caesar cipher. Usage: /caesar [rot||-rot] [message] e.g. /caesar 13 piss';

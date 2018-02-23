@@ -22,3 +22,5 @@ module.exports = ({ reply, message }) => {
 	});
 
 };
+
+module.exports.help = 'Used to work but I think I broke it recently by removing case sensitivity';

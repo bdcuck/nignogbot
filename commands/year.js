@@ -21,3 +21,5 @@ module.exports = ({ reply, message }) => {
 	else
 		return reply('Not found!');
 };
+
+module.exports.help = 'Year in which the element was disovered';

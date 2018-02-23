@@ -10,3 +10,5 @@ module.exports = ({ replyWithPhoto, message }) => {
 	spongemock = caps(spongemock);
 	replyWithPhoto('http://i1.kym-cdn.com/entries/icons/original/000/022/940/spongebobicon.jpg', { caption: spongemock, reply_to_message_id: id });
 };
+
+module.exports.help = 'Spongebob cancer. Reply to a message with /sponge or type /sponge [message]';

@@ -6,3 +6,5 @@ const poopoo = () => {
     return text
 }
 module.exports = ({ reply }) => reply(poopoo());
+
+module.exports.help = 'Random shit';

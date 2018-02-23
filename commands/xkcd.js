@@ -17,3 +17,5 @@ module.exports = ({ replyWithPhoto }) =>
 					data.alt + '\n\n' +
 					'https://xkcd.com/' + data.num + '/'
 			}));
+
+module.exports.help = 'Random XKCD comic';

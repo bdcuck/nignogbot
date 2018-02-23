@@ -12,3 +12,5 @@ module.exports = ({ reply, message }) => {
 		reply('Killed all processes');
 	}
 };
+
+module.exports.help = 'You\'re probably not authorized to do this';

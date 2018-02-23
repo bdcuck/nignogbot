@@ -12,3 +12,5 @@ module.exports = ({ reply, message }) => {
 				? reply(data + ' ')
 				: reply(data + ', status: ' + status));
 };
+
+module.exports.help = 'Retrieve CAS registry number. /cas [compound name]';

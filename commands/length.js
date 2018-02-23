@@ -11,3 +11,5 @@ module.exports = ({ reply, message }) => {
     }
     return reply(`You forgot your message you bunghole.`);
 };
+
+module.exports.help = 'Check message length before using /twat';

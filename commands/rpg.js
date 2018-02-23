@@ -17,3 +17,5 @@ module.exports = ({ message, reply }) => {
             'Commands are: buy, make, sell, bribe, dealer and stats');
     }
 }
+
+module.exports.help = 'Drug RPG, don\'t get caught lmao. Commands are: stats, buy [n], make [n], sell [n], bribe and dealer';

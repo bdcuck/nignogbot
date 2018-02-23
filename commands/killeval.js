@@ -11,3 +11,6 @@ module.exports = ({ reply, message }) => {
 		reply('No process active');
 	}
 };
+
+module.exports.help = 'Kill your eval sandbox if you screwed up or want to remove all stored variables';
+

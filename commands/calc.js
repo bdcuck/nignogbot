@@ -16,3 +16,5 @@ module.exports = ({
 	reply,
 	message
 }) => reply(calc(message));
+
+module.exports.help = 'Calculator. Example usage: /calc 1+1 or /calc 3 meter in inch';

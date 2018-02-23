@@ -19,3 +19,5 @@ module.exports = ({ reply, message }) => {
 	return reply('Not found!');
 
 };
+
+module.exports.help = 'Oxidation states for given element';

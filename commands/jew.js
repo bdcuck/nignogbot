@@ -10,3 +10,6 @@ const jew = (commandText) => {
 
 };
 module.exports = ({ reply }) => reply(jew());
+
+module.exports.help = 'Random swastikas';
+

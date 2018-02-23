@@ -7,3 +7,5 @@ module.exports = ({ message, reply }) => {
     if(!msg) return reply('🅿️🅾️🅾️🅿️🤪🆑ℹ️✝️');
     return reply(niggerify(msg, 4096));
 }
+
+module.exports.help = 'Turn messages into cancer. Usage: /cancer [message] or reply to message wth /cancer';

@@ -9,3 +9,5 @@ ID: ${id(message)}
 Aids:
 ${JSON.stringify(message)}
 `);
+
+module.exports.help = 'Useless message info';

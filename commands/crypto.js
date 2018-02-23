@@ -19,3 +19,5 @@ module.exports = ({ reply, message }) => {
 		});
 };
 
+module.exports.help = 'Cryptocurrency prices. Usage e.g. /crypto BTC';
+

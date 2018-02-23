@@ -19,3 +19,5 @@ module.exports = ({ reply, message }) => {
 				',\nFormula: ' + data.MolecularFormula +
 				', \nSMILES: ' + data.CanonicalSMILES));
 };
+
+module.exports.help = 'Some properties for compounds. Example: /prop 2C-B';

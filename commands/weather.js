@@ -43,3 +43,6 @@ module.exports = ({ reply, message }) => {
 		`)
 	})
 };
+
+module.exports.help = 'Current weather. Example usage: /weather Kanker or /weather Burkina Faso';
+

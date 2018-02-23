@@ -26,3 +26,5 @@ module.exports = ({ reply, message }) => {
 	return reply('Not found!');
 
 };
+
+module.exports.help = 'Melting point of element';

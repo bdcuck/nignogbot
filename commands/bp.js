@@ -26,3 +26,5 @@ module.exports = ({ reply, message }) => {
 	return reply('Not found!');
 
 };
+
+module.exports.help = 'Boiling point of an element. Usage: /bp Au or /bp tungsten';

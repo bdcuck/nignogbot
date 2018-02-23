@@ -17,3 +17,5 @@ module.exports = ({ reply, message }) => {
 	});
 	context.run(commandText(message));
 };
+
+module.exports.help = 'Evaluate JavaScript';

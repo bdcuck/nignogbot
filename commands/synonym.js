@@ -15,3 +15,5 @@ module.exports = ({ reply, message }) => {
 				data[3] + ', ' +
 				data[4]));
 };
+
+module.exports.help = 'Give up to 5 synonyms for a compound. If you see c,o,m,p,o it means you screwed up';
