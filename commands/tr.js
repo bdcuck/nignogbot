@@ -49,3 +49,5 @@ module.exports = ({ replyWithMarkdown, message }) => {
     return translate(parsedText, parseLanguages(commandText(message)) ).then(res => replyWithMarkdown(`_(from: ${translate.languages[res.from.language.iso]})_ \n${res.text}`) && console.log(res));
 
 };
+
+module.exports.help = 'FAT BONER TRANSLATE HELP TEST';
