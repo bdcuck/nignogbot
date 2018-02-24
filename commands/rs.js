@@ -15,8 +15,8 @@ module.exports = ({ replyWithMarkdown, message }) => {
                 statArr.push([skl, stats.skills[skl]]);
             }   
             statArr.sort((a,b) =>  b[1].exp - a[1].exp);    
-            statArr.forEach(x => text += `*${capitalizeFirstLetter(x[0])}*\n  Level ${x[1].level}, XP: ${x[1].exp}\n`)
-            replyWithMarkdown(text)
+            statArr.forEach(x => text += `*${capitalizeFirstLetter(x[0])}*\n  Level ${x[1].level}, XP: ${x[1].exp}\n`);
+            replyWithMarkdown(text);
         })
         .catch(err => replyWithMarkdown(`Username _${player}_ not found hombre`));
 
