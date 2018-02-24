@@ -50,4 +50,4 @@ module.exports = ({ replyWithMarkdown, message }) => {
 
 };
 
-module.exports.help = '';
+module.exports.help = 'Translate. /tr kanker (autodetect language), /tr norwegian stront (autodetect, translate to norwegian), /tr nl:afrikaans neuken (dutch to afrikaans). You can use full language names or ISO codes.';
